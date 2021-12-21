@@ -9,3 +9,8 @@ def index(request):
 
 def index2(request):
     return render(request, '../templates/index2.html')
+
+
+# Create a function for handling users
+
+# Create a function for handling Art
