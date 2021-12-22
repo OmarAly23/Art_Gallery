@@ -84,6 +84,8 @@ DB_USERTABLE='user'
 # variable to hold the artist table
 DB_ARTSITSTABLE='artist'
 
+# variable to hold the art table
+DB_ARTTABLE = 'art'
 
 # We are not using sqlite, instead we are using dynamoDB
 
