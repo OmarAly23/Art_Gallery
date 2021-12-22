@@ -75,9 +75,15 @@ WSGI_APPLICATION = 'lab12project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-
+# the endpoint contains the url and port number the dynamodb runs on through docker
 DB_ENDPOINT='http://localhost:8000'
+
+# variable to hold the user table
 DB_USERTABLE='user'
+
+# variable to hold the artist table
+DB_ARTSITSTABLE='artist'
+
 
 # We are not using sqlite, instead we are using dynamoDB
 

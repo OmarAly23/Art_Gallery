@@ -4,6 +4,7 @@ import boto3
 from lab12project.settings import DB_ENDPOINT, DB_USERTABLE
 
 
+# create table function for the users
 def create_table(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb', endpoint_url=DB_ENDPOINT)
