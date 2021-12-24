@@ -75,26 +75,16 @@ WSGI_APPLICATION = 'lab12project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# the endpoint contains the url and port number the dynamodb runs on through docker
-DB_ENDPOINT='http://localhost:8000'
 
-# variable to hold the user table
-DB_USERTABLE='user'
-
-# variable to hold the artist table
-DB_ARTSITSTABLE='artist'
-
-# variable to hold the art table
-DB_ARTTABLE = 'art'
-
-# We are not using sqlite, instead we are using dynamoDB
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'ArtGallery',
+        'HOST' : '',
+        'PASSWORD' : '', 
+        
+    }
+}
 
 
 # Password validation
