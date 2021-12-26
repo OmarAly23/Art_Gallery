@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 
+
+from pathlib import Path
+import urllib
+# import mongoengine
+# from djongo import models
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -74,16 +78,35 @@ WSGI_APPLICATION = 'artGallery.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': '',
-#         'HOST' : '',
-#         'USER' : '', 
-#         'PASSWORD' : '',
-#     }
+'''
+import mongoengine
+mongoengine.connect(db=DATABASE_NAME, host=DATABASE_HOST, username=USERNAME, password=PASSWORD)
+#DATABASES = {
+# 'default': {
+# 'ENGINE': 'djongo', #'django.db.backends.sqlite3',
+# 'NAME': 'blogs', # DB name
+# 'USER': 'root', # DB User name <optional>
 # }
+#}
+'''
+
+
+# mongoengine.connect(db="artGallery", host="mongodb+srv://Zach-den:" + urllib.parse.quote_plus('Cod09.zax%40') + "@cluster0.briba.mongodb.net/artGallery?retryWrites=true&w=majority", username="Zach-den", password="Cod09.zax%40")
+
+
+# Integrating Mongo DB with django through djongo library
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'CLIENT': {
+            'host': 'mongodb+srv://Zach-den:Cod09.zax%40@cluster0.briba.mongodb.net/artGallery?retryWrites=true&w=majority'
+            # 'user': 'Zach-den',
+            # 'password': 'Cod09.zax%40',
+            # 'name': 'artGallery',
+            # 'authMechanism': 'SCRAM-SHA-1'
+        }
+    }
+}
 
 
 # Password validation
@@ -103,6 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
