@@ -14,5 +14,5 @@ def index(request):
 # Create a function for handling Art
 
 
-# Create a function for the sign in/up
-
+# # Create a function for the sign in/up
+# def signup_view(request):
