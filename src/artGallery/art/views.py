@@ -10,7 +10,9 @@ def index(request):
 
 # Create a function for handling users
 
+
 # Create a function for handling Art
 
 
+# Create a function for the sign in/up
 
