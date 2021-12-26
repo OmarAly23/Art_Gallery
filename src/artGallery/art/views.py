@@ -7,7 +7,11 @@ import urllib
 def index(request):
     return render(request, '../templates/index2.html')
 
+def sign_in(request):
+    return render(request, '../templates/sign_in.html')
 
+def sign_up(request):
+    return render(request, '../templates/sign_up.html')
 # Create a function for handling users
 
 
