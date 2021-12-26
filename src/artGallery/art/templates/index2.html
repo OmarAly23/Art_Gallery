@@ -270,8 +270,8 @@
                     </li>
                     <li>
                         <a href="#" class="ml-2 px-4 py-2 font-light text-base
-                        rounded-md bg-emerald-200 transition hover:bg-emerald-300
-                        active:bg-emerald-100 flex md:inline-flex">
+                        rounded-md bg-cyan-700 transition hover:bg-slate-300
+                        active:bg-slate-100 flex md:inline-flex">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
@@ -345,5 +345,17 @@
       <span class="caption">The desert at night is strange and beautiful</span>
     </div>
   </div>
+
+  <footer>
+    <div class="image-container">
+      {% load static %}
+      <img src="{% static 'art/Romare.jpg' %}" alt="Footer Image">
+    </div>
+    <div class="content">
+      <p>
+        <span class="author">art Gallery</span> project contains art specifications
+      </p>
+    </div>
+  </footer>
 </body>
 </html>
