@@ -99,7 +99,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'CLIENT': {
-            'host': 'mongodb+srv://Zach-den:Cod09.zax%40@cluster0.briba.mongodb.net/artGallery?retryWrites=true&w=majority'
+            'host': 'mongodb+srv://Zach-den:artGallery%40cs470@cluster0.briba.mongodb.net/artGallery?retryWrites=true&w=majority'
             # 'user': 'Zach-den',
             # 'password': 'Cod09.zax%40',
             # 'name': 'artGallery',

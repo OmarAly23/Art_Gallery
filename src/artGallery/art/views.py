@@ -16,3 +16,5 @@ def index2(request):
 
 # Create a function for handling Art
 
+
+
