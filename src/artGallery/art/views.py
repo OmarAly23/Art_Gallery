@@ -31,11 +31,11 @@ def sign_in(request):
             "email": email,
             "password": password
         }
-        retval = collection_name.find(user_record)
-        if retval is None:
-            return render(request, '../templates/success.html')
-        else:
+        retval = collection_name.find(user_record).count()
+        if retval == 0:
             return render(request, '../templates/error.html')
+        else:
+            return render(request, '../templates/success.html')
     return render(request, '../templates/sign_in.html')
 
 
@@ -47,11 +47,13 @@ def sign_up(request):
             "email": em,
             "password": passw
         }
-        retval = collection_name.find(user_to_be_added)
-        if retval is None:
-            return render(request, '../templates/error.html')
-        else:
+        retval = collection_name.find(user_to_be_added).count()
+        if retval == 0:
+            collection_name.insert_one(user_to_be_added)
             return render(request, '../templates/success.html')
+        else:
+            return render(request, '../templates/error.html')
+
         print('User has been added!')
     return render(request, '../templates/sign_up.html')
 
