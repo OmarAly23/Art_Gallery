@@ -22,6 +22,20 @@ def index(request):
 
 # should take in the values
 def sign_in(request):
+    if request.method == 'POST':
+        # check if user is already registered
+        # else send him to the sign up page
+        email = request.POST['email']
+        password = request.POST['password']
+        user_record = {
+            "email": email,
+            "password": password
+        }
+        retval = collection_name.find(user_record)
+        if retval is None:
+            return render(request, '../templates/success.html')
+        else:
+            return render(request, '../templates/error.html')
     return render(request, '../templates/sign_in.html')
 
 
@@ -30,17 +44,15 @@ def sign_up(request):
         em = request.POST['email']
         passw = request.POST['password']
         user_to_be_added = {
-            'email': em,
-            'password': passw
+            "email": em,
+            "password": passw
         }
-        collection_name.insert_one(user_to_be_added)
+        retval = collection_name.find(user_to_be_added)
+        if retval is None:
+            return render(request, '../templates/error.html')
+        else:
+            return render(request, '../templates/success.html')
         print('User has been added!')
     return render(request, '../templates/sign_up.html')
-# Create a function for handling users
 
 
-# Create a function for handling Art
-
-
-# # Create a function for the sign in/up
-# def signup_view(request):
