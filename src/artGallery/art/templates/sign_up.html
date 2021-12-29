@@ -73,14 +73,23 @@
   <header class="border-b px-3">
     <div class="container mx-auto flex items-center justify-between relative">
         <a href="{% url 'index' %}">
-            <img src="{% static 'admin/img/paint.png' %}" alt="Logo" width=80>
+            <img src="{% static 'admin/img/edvard-munch-96.png' %}" alt="Logo" width=80>
         </a>
             <nav>
                 <ul class="flex items-center">
                     <li>
-                        <a href="#" class="px-4 py-2 font-light text-base
-                        rounded-md transition hover:bg-gray-200
-                        active:bg-transparent">Search</a>
+                        <a href="#" class="ml-2 px-4 py-2 font-light text-base
+                        rounded-md bg-cyan-700 transition hover:bg-slate-300
+                        active:bg-slate-100 flex md:inline-flex">
+                            Browse art
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="ml-2 px-4 py-2 font-light text-base
+                        rounded-md bg-cyan-700 transition hover:bg-slate-300
+                        active:bg-slate-100 flex md:inline-flex">
+                            Search for artists
+                        </a>
                     </li>
                     <li>
                         <a href="#" class="ml-2 px-4 py-2 font-light text-base

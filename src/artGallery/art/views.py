@@ -56,13 +56,12 @@ def sign_up(request):
         # you cannot use the same email twice
         # check if the email is already registered
         retval = collection_name.find(user_to_be_added).count()
-        if retval == 1:
+        if retval == 0:
             print(f'Before we insert value, print retval: {retval}')
             collection_name.insert_one(user_to_be_added)
             return render(request, '../templates/success.html')
         else:
             return render(request, '../templates/error.html')
-
         print('User has been added!')
     return render(request, '../templates/sign_up.html')
 
