@@ -40,7 +40,12 @@ def sign_in(request):
             return render(request, '../templates/error.html')
         else:
             print(f'retval {retval}')
-            return render(request, '../templates/success.html')
+            validate_pass = collection_name.find(user_record).count()
+            if validate_pass == 1:
+                return render(request, '../templates/success.html')
+            else:
+                return render(request, '../templates/error.html')
+
     return render(request, '../templates/sign_in.html')
 
 
