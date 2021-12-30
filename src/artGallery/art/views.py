@@ -56,7 +56,8 @@ def sign_up(request):
         if check_email >= 1:
             # hence, the email is already registered
             return HttpResponse('The email already exists!')
-        retval = collection_name.find(user_to_be_added)
+        # retval should be 1 when the record exists and zero when it does not exist
+        retval = collection_name.find({"email_id": em})
         if retval == 0:
             print(f'Before we insert value, print retval: {retval}')
             collection_name.insert_one(user_to_be_added)
