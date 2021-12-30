@@ -1,5 +1,13 @@
 # CS470_DatabasesProject
 
+## Project Overview[^1]
+
+[^1]: A system that allows users to connect with and explore their favourite art and artists.
+	Enables for seamless interaction in browsing and keeping up with user-specific targetted art.
+
+> Contributed By: 
+> Omar Aly & Aya al-sakkaf
+
 ## How to use:
 
 ##### In src directory -> navigate to artGallery
