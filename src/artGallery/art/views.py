@@ -52,10 +52,6 @@ def sign_up(request):
         # you cannot use the same email twice
         # check if the email is already registered
         # this part should check if an email already exists
-        check_email = collection_name.find({"email": em}).count()
-        if check_email >= 1:
-            # hence, the email is already registered
-            return HttpResponse('The email already exists!')
         # retval should be 1 when the record exists and zero when it does not exist
         retval = collection_name.find({"email_id": em})
         if retval == 0:
