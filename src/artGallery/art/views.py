@@ -32,7 +32,8 @@ def sign_in(request):
             "email_id": email,
             "password": password
         }
-
+        for key, value in request.session.items():
+            print(f'printing key and value of session {key} => {value}')
         retval = collection_name.find({"email_id": email}).count()
         # retval returning 0 indicates that the user is not registered
         if retval == 0:
@@ -61,14 +62,41 @@ def sign_up(request):
         # check if the email is already registered
         # this part should check if an email already exists
         # retval should be 1 when the record exists and zero when it does not exist
-        retval = collection_name.find({"email_id": em})
+        retval = collection_name.find({"email_id": em}).count()
         if retval == 0:
             print(f'Before we insert value, print retval: {retval}')
             collection_name.insert_one(user_to_be_added)
             return render(request, '../templates/success.html')
         else:
+            print(f'Before we insert value, print retval: {retval}')
             return render(request, '../templates/error.html')
         print('User has been added!')
     return render(request, '../templates/sign_up.html')
+
+
+
+
+# Creating and testing cookie sessions
+
+def cookie_session(request):
+    request.session.set_test_cookie()
+    return HttpResponse("<h1>Dataflair</h1>")
+
+def cookie_delete(request):
+    if request.session.test_cookie_worked():
+        request.session.delete_test_cookie()
+        response = HttpResponse("dataflair</br>")
+    else:
+        response = HttpResponse("cookie was not accepted<br>")
+    return response
+
+
+
+
+
+
+
+
+
 
 
