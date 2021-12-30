@@ -33,10 +33,13 @@ def sign_in(request):
             "password": password
         }
 
-        retval = collection_name.find(user_record).count()
-        if retval == 1:
+        retval = collection_name.find({"email_id": email}).count()
+        # retval returning 0 indicates that the user is not registered
+        if retval == 0:
+            print(f'retval {retval}')
             return render(request, '../templates/error.html')
         else:
+            print(f'retval {retval}')
             return render(request, '../templates/success.html')
     return render(request, '../templates/sign_in.html')
 
