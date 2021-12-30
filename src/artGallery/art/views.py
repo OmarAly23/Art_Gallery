@@ -29,7 +29,7 @@ def sign_in(request):
         email = request.POST['email']
         password = request.POST['password']
         user_record = {
-            "email": email,
+            "email_id": email,
             "password": password
         }
         # this part should check if an email already exists
@@ -50,7 +50,7 @@ def sign_up(request):
         em = request.POST['email']
         passw = request.POST['password']
         user_to_be_added = {
-            "email": em,
+            "email_id": em,
             "password": passw
         }
         # you cannot use the same email twice
