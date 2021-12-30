@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # import sys
@@ -43,6 +43,7 @@ def sign_in(request):
             print(f'retval {retval}')
             validate_pass = collection_name.find(user_record).count()
             if validate_pass == 1:
+                create_session(request, email, password)
                 return render(request, '../templates/success.html')
             else:
                 return render(request, '../templates/error.html')
@@ -91,9 +92,20 @@ def cookie_delete(request):
     return response
 
 
+def create_session(request, email, password):
+    request.session['email'] = email
+    request.session['password'] = password
+    access_session(request, email, password)
 
-
-
+def access_session(request, email, password):
+    response = "<h1>User just logged in</h1><br>"
+    if request.session.get(email):
+        response += f"User email: {request.session.get(email)}"
+    if request.session.get(password):
+        response += f"User password: {request.session.get(password)}"
+        return HttpResponse(response)
+    else:
+        return redirect('/')
 
 
 
