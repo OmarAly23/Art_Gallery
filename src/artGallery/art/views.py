@@ -32,11 +32,7 @@ def sign_in(request):
             "email_id": email,
             "password": password
         }
-        # this part should check if an email already exists
-        check_email = collection_name.find({"email": email}).count()
-        if check_email > 1:
-            # hence, the email is already registered
-            return HttpResponse('The email already exists!')
+
         retval = collection_name.find(user_record).count()
         if retval == 1:
             return render(request, '../templates/error.html')
@@ -55,7 +51,12 @@ def sign_up(request):
         }
         # you cannot use the same email twice
         # check if the email is already registered
-        retval = collection_name.find(user_to_be_added).count()
+        # this part should check if an email already exists
+        check_email = collection_name.find({"email": em}).count()
+        if check_email >= 1:
+            # hence, the email is already registered
+            return HttpResponse('The email already exists!')
+        retval = collection_name.find(user_to_be_added)
         if retval == 0:
             print(f'Before we insert value, print retval: {retval}')
             collection_name.insert_one(user_to_be_added)
