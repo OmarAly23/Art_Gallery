@@ -43,11 +43,26 @@ def sign_in(request):
             print(f'retval {retval}')
             validate_pass = collection_name.find(user_record).count()
             if validate_pass == 1:
-                return render(request, '../templates/success.html')
+                request.session['user'] = email
+                name = email.split('@')
+                userInfo = {
+                    'email': email,
+                    'name': name[0]
+                }
+                print(f'the current user logged in: {request.session["user"]}')
+                return render(request, '../templates/sign_in.html', userInfo)
             else:
                 return render(request, '../templates/error.html')
 
     return render(request, '../templates/sign_in.html')
+
+
+def logout(request):
+    try:
+        del request.session['user']
+    except:
+        return redirect('login')
+    return redirect('login')
 
 
 def sign_up(request):
@@ -78,24 +93,24 @@ def sign_up(request):
 
 # Creating and testing cookie sessions
 
-def cookie_session(request):
-    request.session.set_test_cookie()
-    return HttpResponse("<h1>Dataflair</h1>")
-
-def cookie_delete(request):
-    if request.session.test_cookie_worked():
-        request.session.delete_test_cookie()
-        response = HttpResponse("dataflair</br>")
-    else:
-        response = HttpResponse("cookie was not accepted<br>")
-    return response
-
-
-def create_session(request):
-    request.session['email'] = 'email'
-    request.session['password'] = 'password'
-    return HttpResponse('<h1>The session started for email and password</h1>')
-    # access_session(request, email, password)
+# def cookie_session(request):
+#     request.session.set_test_cookie()
+#     return HttpResponse("<h1>Dataflair</h1>")
+#
+# def cookie_delete(request):
+#     if request.session.test_cookie_worked():
+#         request.session.delete_test_cookie()
+#         response = HttpResponse("dataflair</br>")
+#     else:
+#         response = HttpResponse("cookie was not accepted<br>")
+#     return response
+#
+#
+# def create_session(request):
+#     request.session['email'] = 'email'
+#     request.session['password'] = 'password'
+#     return HttpResponse('<h1>The session started for email and password</h1>')
+#     # access_session(request, email, password)
 
 # def access_session(request, email, password):
 #     response = "<h1>User just logged in</h1><br>"
