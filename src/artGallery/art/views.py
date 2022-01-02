@@ -17,7 +17,7 @@ collection_name = dbname['User']
 # Create your views here.
 
 def index(request):
-    return render(request, '../templates/index2.html')
+    return render(request, '../templates/index.html')
 
 
 # should take in the values
@@ -50,11 +50,11 @@ def sign_in(request):
                     'name': name[0]
                 }
                 print(f'the current user logged in: {request.session["user"]}')
-                return render(request, '../templates/sign_in.html', userInfo)
+                return render(request, '../templates/logIn.html', userInfo)
             else:
                 return render(request, '../templates/error.html')
 
-    return render(request, '../templates/sign_in.html')
+    return render(request, '../templates/logIn.html')
 
 
 def logout(request):
