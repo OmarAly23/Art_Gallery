@@ -86,7 +86,7 @@ def sign_up(request):
             print(f'Before we insert value, print retval: {retval}')
             return render(request, '../templates/error.html')
         print('User has been added!')
-    return render(request, '../templates/sign_up.html')
+    return render(request, '../templates/signUp.html')
 
 
 
