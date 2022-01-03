@@ -39,7 +39,13 @@
 
     <section id="main" class="d-flex flex-column justify-content-center">
         <div class="container">
-            <h1>Artistry Ave</h1>
+            <h1>
+                {% if name %}
+                    Artistry Ave | Hi, {{ name }}
+                {% else %}
+                    Artistry Ave
+                {% endif %}
+            </h1>
             <span class="text-slider-items">
                     Aya and Omar's Art Gallery
                 </span>
@@ -86,11 +92,9 @@
                             <img src="../static/admin/img/sixTusanPoets.jpg" alt="image" class="img-fluid" />
                         </a>
                         <div class="glightbox-desc custom-desc1">
-                            Six Tuscan Poets (1569) by Giorgio Vasari, depicting a group of Italian Humanists (Dante Alighieri,
-                            Giovanni
-                            Boccaccio, Petrarch, Cino da Pistoia, Guittone dArezzo, and Guido Cavalcanti)
+                            {{ art_title }} by {{ artist }}, {{ art_description }}
                         </div>
-            
+
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 portfolio-item renaissance">
@@ -114,12 +118,8 @@
                         </a>
                         <div class="glightbox-desc custom-desc3">
                             
-                            <strong>Son 0f Man (1956) by Rene Magritte</strong> <p></p>
-                            <blockquote class="blockquote">“At least it hides the face partly well, so you have the apparent face, the apple, hiding the visible but hidden, the
-                                face of the person. It&apos;s something that happens constantly. Everything we see hides another thing, we always want to
-                                see what is hidden by what we see. There is an interest in that which is hidden and which the visible does not show
-                                us. This interest can take the form of a quite intense feeling, a sort of conflict, one might say, between the
-                                visible that is hidden and the visible that is present.“</blockquote>
+                            <strong>Son 0f Man (1956) by {{ art_title }}</strong> <p></p>
+                            <blockquote class="blockquote">{{ art_description }}</blockquote>
                                 <figcaption class="blockquote-footer">
                                      Rene Magritte
                                   </figcaption>
