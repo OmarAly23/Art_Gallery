@@ -1,5 +1,6 @@
 from pymongo import MongoClient
-
+import json
+from bson.json_util import dumps, loads
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -17,8 +18,28 @@ collection_name = dbname['User']
 # Create your views here.
 
 def index(request):
-    return render(request, '../templates/index.html')
+    collection_name2 = dbname['art']
+    result = collection_name2.find({})
+    # result should contain all the art in the art table, to send and display in index.html aka the homepage
+    list_result = list(result)
+    print(f'{list_result[2]["art_title"]}')
+    for l in list_result:
+        print(f'l of art title is {l["art_title"]}')
+    # json_list = dumps(list_result)
+    # print(f'The entire homepage art list: {json_list}')
+    return render(request, '../templates/index.html', list_result[2])
 
+
+def send_art(request):
+    collection_name2 = dbname['art']
+    result = collection_name2.find({})
+    # result should contain all the art in the art table, to send and display in index.html aka the homepage
+    list_result = list(result)
+    print(f'{list_result[2]["art_title"]}')
+    for l in list_result:
+        print(f'l of art title is {l["art_title"]}')
+
+    return HttpResponse(list_result)
 
 # should take in the values
 def sign_in(request):
@@ -50,7 +71,7 @@ def sign_in(request):
                     'name': name[0]
                 }
                 print(f'the current user logged in: {request.session["user"]}')
-                return render(request, '../templates/logIn.html', userInfo)
+                return render(request, '../templates/index.html', userInfo)
             else:
                 return render(request, '../templates/error.html')
 
