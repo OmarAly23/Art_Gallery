@@ -29,9 +29,19 @@
           <li><a href="#contact" class="nav-link scrollto"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
           </svg> <span>Contact</span></a></li>
-          <li><a href="{% url 'sign_in' %}" class="nav-link scrollto"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-          </svg> <span>Log In</span></a></li>
+          <li>
+              {% if name %}
+                            <a href="{% url 'log_out' %}" class="nav-link scrollto"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                              </svg> <span>Logout</span>
+                            </a>
+              {% else %}
+                            <a href="{% url 'sign_in' %}" class="nav-link scrollto"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                              </svg> <span>Log In</span>
+                            </a>
+              {% endif %}
+          </li>
         </ul>
       </nav>
       </header>
@@ -84,94 +94,98 @@
                 </div>
             </div>
 
+
             <div class="row portfolio-container">
+                {% for record in records %}
                 <div class="col-lg-4 col-md-6 portfolio-item renaissance" >
                     <div class="portfolio-wrap">
                         <a href="../static/admin/img/sixTusanPoets.jpg" class="glightbox2"
-                            data-glightbox="title: Six Tuscan Poets; description: .custom-desc1; descPosition: left;">
-                            <img src="../static/admin/img/sixTusanPoets.jpg" alt="image" class="img-fluid" />
+                            data-glightbox="title: {{ record.art_title }}; description: .custom-desc1; descPosition: left;">
+                            <img src="data:image/jpg;base64,{{ record.art_document }}" alt="image" class="img-fluid" />
                         </a>
                         <div class="glightbox-desc custom-desc1">
-                            {{ art_title }} by {{ artist }}, {{ art_description }}
+                             {{ record.art_title }} by {{ record.artist }}, {{ record.art_description }}
                         </div>
 
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 portfolio-item renaissance">
-                    <div class="portfolio-wrap">
-                        <a href="../static/admin/img/VirginOfTheRocks.jpg" class="glightbox2"
-                            data-glightbox="title: Virgin Of The Rocks; description: .custom-desc2; descPosition: left;">
-                            <img src="../static/admin/img/VirginOfTheRocks.jpg" alt="image" class="img-fluid" />
-                        </a>
-                        <div class="glightbox-desc custom-desc2">
-                            
-                            <strong>Virgin of the Rocks (1503-1506) by Leonardo da Vinci</strong> <p></p>
-                            <p>When we look at Virgin of the Rocks, the subject matter of this painting is the Virgin Mother Mary with two infants: one is Jesus Christ, and the other is John the Baptist. They are accompanied by the archangel Gabriel to the right-hand side. The environment around the figures is quite mysterious in nature, depicting various rocky, almost cave-like structures in the background with a pool of water and some foliage with rocks in the foreground.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item surrealism">
-                    <div class="portfolio-wrap">
-                        <a href="../static/admin/img/SonOfMan.jpg" class="glightbox2"
-                            data-glightbox="title: Son Of Man; description: .custom-desc3; descPosition: left;">
-                            <img src="../static/admin/img/SonOfMan.jpg" alt="image" class="img-fluid" />
-                        </a>
-                        <div class="glightbox-desc custom-desc3">
-                            
-                            <strong>Son 0f Man (1956) by {{ art_title }}</strong> <p></p>
-                            <blockquote class="blockquote">{{ art_description }}</blockquote>
-                                <figcaption class="blockquote-footer">
-                                     Rene Magritte
-                                  </figcaption>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item surrealism">
-                    <div class="portfolio-wrap">
-                        <a href="../static/admin/img/thePresistenceOfMemory.jpg" class="glightbox2"
-                            data-glightbox="title: The Presistence of Memory; description: .custom-desc4; descPosition: left;">
-                            <img src="../static/admin/img/thePresistenceOfMemory.jpg" alt="image" class="img-fluid" />
-                        </a>
-                        <div class="glightbox-desc custom-desc4">
-                            
-                            <strong>The Presistence of Memory (1931) Salvador Dali</strong> <p></p>
-                            <p>Those limp watches are as soft as overripe cheese—indeed, they picture “the camembert of time,” in Dalí&apos;s
-                                phrase. Here time must lose all meaning. Permanence goes with it: ants, a common theme in Dalí&apos;s work,
-                                represent decay, particularly when they attack a gold watch, and they seem grotesquely organic. The monstrous fleshy
-                                creature draped across the painting&apos;s center is at once alien and familiar: an approximation of Dalí&apos;s own
-                                face in profile, its long eyelashes seem disturbingly insect-like or even sexual, as does what may or may not be a
-                                tongue oozing from its nose like a fat snail.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item romanticism">
-                    <div class="portfolio-wrap">
-                        <a href="../static/admin/img/Liberty.jpg" class="glightbox2"
-                            data-glightbox="title: Liberty Leading the People; description: .custom-desc5; descPosition: left;">
-                            <img src="../static/admin/img/Liberty.jpg" alt="image" class="img-fluid" />
-                        </a>
-                        <div class="glightbox-desc custom-desc5">
-                            
-                            <strong>Liberty Leading the People (1830) by Eugene Delacroix</strong> <p></p>
-                            <p>Liberty Leading the People (1830) by Eugène Delacroix, depicting the theater of war during the French July Revolution (July 28, 1830)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item romanticism">
-                    <div class="portfolio-wrap">
-                        <a href="../static/admin/img/wanderer.jpg" class="glightbox2"
-                            data-glightbox="title: Wanderer Above the Sea of Fog; description: .custom-desc6; descPosition: left;">
-                            <img src="../static/admin/img/wanderer.jpg" alt="image" class="img-fluid" />
-                        </a>
-                        <div class="glightbox-desc custom-desc6">
-                            
-                            <strong>Wanderer Above the Sea of Fog (1818) by Caspar David Friedrich</strong> <p></p>
-                            <p>The painting was done during a time in which exploration was largely romanticized by much of Europe and the United
-                                States. Friedrich&apos;s work appears to convey the sense of wonder and adventure that was so often sought after among
-                                the many explorers of the early 19th century.</p>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+
+<!--                <div class="col-lg-4 col-md-6 portfolio-item renaissance">-->
+<!--                    <div class="portfolio-wrap">-->
+<!--                        <a href="../static/admin/img/VirginOfTheRocks.jpg" class="glightbox2"-->
+<!--                            data-glightbox="title: Virgin Of The Rocks; description: .custom-desc2; descPosition: left;">-->
+<!--                            <img src="../static/admin/img/VirginOfTheRocks.jpg" alt="image" class="img-fluid" />-->
+<!--                        </a>-->
+<!--                        <div class="glightbox-desc custom-desc2">-->
+<!--                            -->
+<!--                            <strong>Virgin of the Rocks (1503-1506) by Leonardo da Vinci</strong> <p></p>-->
+<!--                            <p>When we look at Virgin of the Rocks, the subject matter of this painting is the Virgin Mother Mary with two infants: one is Jesus Christ, and the other is John the Baptist. They are accompanied by the archangel Gabriel to the right-hand side. The environment around the figures is quite mysterious in nature, depicting various rocky, almost cave-like structures in the background with a pool of water and some foliage with rocks in the foreground.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-4 col-md-6 portfolio-item surrealism">-->
+<!--                    <div class="portfolio-wrap">-->
+<!--                        <a href="../static/admin/img/SonOfMan.jpg" class="glightbox2"-->
+<!--                            data-glightbox="title: Son Of Man; description: .custom-desc3; descPosition: left;">-->
+<!--                            <img src="../static/admin/img/SonOfMan.jpg" alt="image" class="img-fluid" />-->
+<!--                        </a>-->
+<!--                        <div class="glightbox-desc custom-desc3">-->
+<!--                            -->
+<!--                            <strong>Son 0f Man (1956) by {{ art_title }}</strong> <p></p>-->
+<!--                            <blockquote class="blockquote">{{ art_description }}</blockquote>-->
+<!--                                <figcaption class="blockquote-footer">-->
+<!--                                     Rene Magritte-->
+<!--                                  </figcaption>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-4 col-md-6 portfolio-item surrealism">-->
+<!--                    <div class="portfolio-wrap">-->
+<!--                        <a href="../static/admin/img/thePresistenceOfMemory.jpg" class="glightbox2"-->
+<!--                            data-glightbox="title: The Presistence of Memory; description: .custom-desc4; descPosition: left;">-->
+<!--                            <img src="../static/admin/img/thePresistenceOfMemory.jpg" alt="image" class="img-fluid" />-->
+<!--                        </a>-->
+<!--                        <div class="glightbox-desc custom-desc4">-->
+<!--                            -->
+<!--                            <strong>The Presistence of Memory (1931) Salvador Dali</strong> <p></p>-->
+<!--                            <p>Those limp watches are as soft as overripe cheese—indeed, they picture “the camembert of time,” in Dalí&apos;s-->
+<!--                                phrase. Here time must lose all meaning. Permanence goes with it: ants, a common theme in Dalí&apos;s work,-->
+<!--                                represent decay, particularly when they attack a gold watch, and they seem grotesquely organic. The monstrous fleshy-->
+<!--                                creature draped across the painting&apos;s center is at once alien and familiar: an approximation of Dalí&apos;s own-->
+<!--                                face in profile, its long eyelashes seem disturbingly insect-like or even sexual, as does what may or may not be a-->
+<!--                                tongue oozing from its nose like a fat snail.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-4 col-md-6 portfolio-item romanticism">-->
+<!--                    <div class="portfolio-wrap">-->
+<!--                        <a href="../static/admin/img/Liberty.jpg" class="glightbox2"-->
+<!--                            data-glightbox="title: Liberty Leading the People; description: .custom-desc5; descPosition: left;">-->
+<!--                            <img src="../static/admin/img/Liberty.jpg" alt="image" class="img-fluid" />-->
+<!--                        </a>-->
+<!--                        <div class="glightbox-desc custom-desc5">-->
+<!--                            -->
+<!--                            <strong>Liberty Leading the People (1830) by Eugene Delacroix</strong> <p></p>-->
+<!--                            <p>Liberty Leading the People (1830) by Eugène Delacroix, depicting the theater of war during the French July Revolution (July 28, 1830)</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-4 col-md-6 portfolio-item romanticism">-->
+<!--                    <div class="portfolio-wrap">-->
+<!--                        <a href="../static/admin/img/wanderer.jpg" class="glightbox2"-->
+<!--                            data-glightbox="title: Wanderer Above the Sea of Fog; description: .custom-desc6; descPosition: left;">-->
+<!--                            <img src="../static/admin/img/wanderer.jpg" alt="image" class="img-fluid" />-->
+<!--                        </a>-->
+<!--                        <div class="glightbox-desc custom-desc6">-->
+<!--                            -->
+<!--                            <strong>Wanderer Above the Sea of Fog (1818) by Caspar David Friedrich</strong> <p></p>-->
+<!--                            <p>The painting was done during a time in which exploration was largely romanticized by much of Europe and the United-->
+<!--                                States. Friedrich&apos;s work appears to convey the sense of wonder and adventure that was so often sought after among-->
+<!--                                the many explorers of the early 19th century.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 
             </div>
 
