@@ -1,9 +1,10 @@
 from pymongo import MongoClient
+import collections as c
 import json
 from bson.json_util import dumps, loads
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from django.contrib.auth import logout
 # import sys
 # sys.path.append('..')
 # sys.path.append('.')
@@ -18,18 +19,43 @@ collection_name = dbname['User']
 # Create your views here.
 
 def index(request):
-    collection_name2 = dbname['art']
-    result = collection_name2.find({})
-    # result should contain all the art in the art table, to send and display in index.html aka the homepage
-    list_result = list(result)
-    print(f'{list_result[2]["art_title"]}')
-    for l in list_result:
-        print(f'l of art title is {l["art_title"]}')
+    # you first wanna make sure if there is an active session or not
+    if 'user' in request.session:
+        # user is logged in
+        # and session is live
+        current_user = request.session['user']
+        name = current_user.split('@')
+        param = {
+            'name': name[0]
+        }
+
+        # list_result = list(result)
+        # print(f'{list_result[2]["_id"]}')
+        # for l in list_result:
+        #     print(f'l of art title is {l["art_title"]}')
+        #     retval = c.ChainMap(l)
+        # print(f'retval is: {retval}')
+        return render(request, '../templates/index.html', param)
+
+    # collection_name2 = dbname['art']
+    # result = collection_name2.find({})
+    # result should contain all the art related attributes in the art table in the form of a dictionary
+    # to send and display in index.html aka the homepage
     # json_list = dumps(list_result)
     # print(f'The entire homepage art list: {json_list}')
-    return render(request, '../templates/index.html', list_result[2])
+    # user is not logged in
+    collection_name2 = dbname['art']
+    result = collection_name2.find({})
+    # for element in result:
+    #     print(element)
+    # print(result)
+    data = {
+        'records': result,
+    }
+    return render(request, '../templates/index.html', data)
 
 
+# should try and send all art records to the homepage for display
 def send_art(request):
     collection_name2 = dbname['art']
     result = collection_name2.find({})
@@ -66,24 +92,25 @@ def sign_in(request):
             if validate_pass == 1:
                 request.session['user'] = email
                 name = email.split('@')
-                userInfo = {
+                param = {
                     'email': email,
                     'name': name[0]
                 }
                 print(f'the current user logged in: {request.session["user"]}')
-                return render(request, '../templates/index.html', userInfo)
+                return render(request, '../templates/index.html', param)
             else:
                 return render(request, '../templates/error.html')
 
     return render(request, '../templates/logIn.html')
 
 
-def logout(request):
+def log_out(request):
     try:
         del request.session['user']
+        logout(request)
     except:
-        return redirect('login')
-    return redirect('login')
+        return redirect('sign_in')
+    return redirect('sign_in')
 
 
 def sign_up(request):
@@ -108,41 +135,6 @@ def sign_up(request):
             return render(request, '../templates/error.html')
         print('User has been added!')
     return render(request, '../templates/signUp.html')
-
-
-
-
-# Creating and testing cookie sessions
-
-# def cookie_session(request):
-#     request.session.set_test_cookie()
-#     return HttpResponse("<h1>Dataflair</h1>")
-#
-# def cookie_delete(request):
-#     if request.session.test_cookie_worked():
-#         request.session.delete_test_cookie()
-#         response = HttpResponse("dataflair</br>")
-#     else:
-#         response = HttpResponse("cookie was not accepted<br>")
-#     return response
-#
-#
-# def create_session(request):
-#     request.session['email'] = 'email'
-#     request.session['password'] = 'password'
-#     return HttpResponse('<h1>The session started for email and password</h1>')
-#     # access_session(request, email, password)
-
-# def access_session(request, email, password):
-#     response = "<h1>User just logged in</h1><br>"
-#     if request.session.get(email):
-#         response += f"User email: {request.session.get(email)}"
-#     if request.session.get(password):
-#         response += f"User password: {request.session.get(password)}"
-#         return HttpResponse(response)
-#     else:
-#         return redirect('/')
-#
 
 
 
