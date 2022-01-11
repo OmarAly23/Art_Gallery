@@ -52,7 +52,23 @@ def index(request):
     data = {
         'records': result,
     }
-    return render(request, '../templates/index.html', data)
+
+    if request.method == 'POST':
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        msg = request.POST['message']
+        contact_to_be_added = {
+            "fname": fname,
+            "lname": lname,
+            "email": email,
+            "msg": msg,
+        }
+
+        collection_nameC = dbname['contact']
+        collection_nameC.insert_one(contact_to_be_added)
+    return render(request, '../templates/index.html')
+
 
 
 # should try and send all art records to the homepage for display
