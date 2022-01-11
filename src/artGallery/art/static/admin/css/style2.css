@@ -148,7 +148,7 @@ section {
     Main Section
 --------------------------------------------------------------*/
 #main {
-    width: 100%;
+    width: 94.7%;
     height: 100vh;
     background: url("https://myawsdbimagesbuck.s3.us-east-2.amazonaws.com/4907157.jpg") top right no-repeat;
     background-size: cover;
@@ -227,23 +227,7 @@ section {
 
 
 
-.contact .form{
-    width: 100%;
-    background: #fff;
-    margin-left: 20rem;
-  }
-  .contact .form .form-group {
-    padding-bottom: 8px;
-  }
 
-  .contact .form button[type=submit] {
-    background: #000407;
-    border: 0;
-    padding: 10px 35px;
-    color: #fff;
-    transition: 0.4s;
-    border-radius: 50px;
-  }
 
 /*--------------------------------------------------------------
 # Sign up & Log In
