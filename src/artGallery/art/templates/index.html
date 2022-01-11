@@ -1,20 +1,22 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    
+<head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../static/admin/img/icons8-image-gallery-50.png" rel="icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
     <link href="../static/admin/css/style2.css" rel="stylesheet">
     <title>Home | Artistry Ave</title>
-  </head>
+</head>
 
-  <body>
-    <header id="header" class="d-flex flex-column justify-content-center">
-      <nav id="navbar" class="navbar nav-menu">
+<body>
+<header id="header" class="d-flex flex-column justify-content-center">
+    <nav id="navbar" class="navbar nav-menu">
         <ul>
           <li><a href="#main" class="nav-link scrollto active"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
@@ -42,57 +44,87 @@
                             </a>
               {% endif %}
           </li>
-        </ul>
-      </nav>
-      </header>
+    </nav>
+</header>
 
 
-    <section id="main" class="d-flex flex-column justify-content-center">
-        <div class="container">
-            <h1>
-                {% if name %}
-                    Artistry Ave | Hi, {{ name }}
-                {% else %}
-                    Artistry Ave
-                {% endif %}
-            </h1>
-            <span class="text-slider-items">
+<section id="main" class="d-flex flex-column justify-content-center">
+    <div class="container">
+        <h1>
+            {% if name %}
+            Artistry Ave | Hi, {{ name }}
+            {% else %}
+            Artistry Ave
+            {% endif %}
+        </h1>
+        <span class="text-slider-items">
                     Aya and Omar's Art Gallery
                 </span>
-            <p> <span class="text-slider"></span> </p>
+        <p><span class="text-slider"></span></p>
+    </div>
+</section>
+
+<section id="artists" class="artists">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Artists</h2>
         </div>
-    </section>
-
-    <section id="artists" class="artists">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Artists</h2>
-            </div>
-
-            
-        </div>
-        
-    </section>
-    <section id="art" class="portfolio section-bg">
-        <div class="container">
-            <div class="section-title">
-                <h2>Art</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat
-                    sit in iste officiis commodi quidem hic quas.</p>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12 d-flex justify-content-center">
-                    <ul id="portfolio-filters">
-                        <li onclick="filterSelection('all')" class="filter active">All</li>
-                        <li onclick="filterSelection('renaissance')" class="filter ">Renaissance</li>
-                        <li onclick="filterSelection('surrealisn')" class="filter ">Surrealism</li>
-                        <li onclick="filterSelection('romanticism')" class="filter ">Romanticism</li>
-                    </ul>
+        <div class="row container">
+            <main class="page-content">
+                <div class="card artist">
+                    <div class="content">
+                        <h2 class="title">Leonardo Davinci</h2>
+                        <p class="copy">Mona Lisa</p>
+                        <button class="btn bttnn">Go to Page</button>
+                    </div>
                 </div>
+                <div class="card artist">
+                    <div class="content">
+                        <h2 class="title">Salvador Dali</h2>
+                        <p class="copy">Mona Lisa</p>
+                        <button class="btn bttnn">Go to Page</button>
+                    </div>
+                </div>
+
+               <div class="card artist">
+                    <div class="content">
+                        <h2 class="title">Pablo Picasso</h2>
+                        <p class="copy">Mona Lisa</p>
+                        <button class="btn bttnn">Go to Page</button>
+                    </div>
+                </div>
+               <div class="card artist">
+                    <div class="content">
+                        <h2 class="title">Frida Kahlo</h2>
+                        <p class="copy">Mona Lisa</p>
+                        <button class="btn bttnn">Go to Page</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</section>
+<section id="art" class="portfolio section-bg">
+    <div class="container">
+        <div class="section-title">
+            <h2>Art</h2>
+            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat
+                sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <ul id="portfolio-filters">
+                    <li onclick="filterSelection('all')" class="filter active">All</li>
+                    <li onclick="filterSelection('renaissance')" class="filter ">Renaissance</li>
+                    <li onclick="filterSelection('surrealisn')" class="filter ">Surrealism</li>
+                    <li onclick="filterSelection('romanticism')" class="filter ">Romanticism</li>
+                </ul>
             </div>
+        </div>
 
 
             <div class="row portfolio-container">
@@ -186,53 +218,58 @@
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-                
+
             </div>
 
+
+
+
+    </div>
+</section>
+
+
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="section-title">
+            <h2>Contact</h2>
         </div>
-    </section>
 
+        <div class="col-lg-8 mt-5 mt-lg-0 ">
 
-
-
-
-
-    <section id="contact" class="contact">
-        <div class="conatiner">
-            <div class="section-title">
-                <h2>Contact</h2>
-            </div>
-
-            <div class="col-lg-8 mt-5 mt-lg-0 ">
-
-                <form action="#" method="post" role="form" class="form">
-                  <div class="row">
+            <form action="#" method="post" role="form" class="form">
+                <div class="row">
                     <div class="col-md-6 form-group">
-                      <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                     </div>
                     <div class="col-md-6 form-group mt-3 mt-md-0">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                               required>
                     </div>
-                  </div>
-                  <div class="form-group mt-3">
+                </div>
+                <div class="form-group mt-3">
                     <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                  </div>
-                  <div class="form-group mt-3">
+                </div>
+                <div class="form-group mt-3">
                     <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-                  </div>
-                  <div class="text-center"><button type="submit">Send Message</button></div>
-                </form>
-    
-              </div>
-        
+                </div>
+                <div class="text-center">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+
         </div>
 
-    </section>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
+</section>
+
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
         if ($(".text-slider").length == 1) {
               
             var typed_strings = 
@@ -246,9 +283,10 @@
                 backSpeed: 30,
             });
         }
-    </script>
 
-    <script>
+</script>
+
+<script>
         var lightbox = GLightbox();
         lightbox.on('open', (target) => {
             console.log('lightbox opened');
@@ -290,8 +328,9 @@
         var lightboxInlineIframe = GLightbox({
             selector: '.glightbox4'
         });
-    </script>
 
-   
-  </body>
+</script>
+
+
+</body>
 </html>
