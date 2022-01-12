@@ -21,14 +21,22 @@ pip install -r requirements.txt
 ```
 
 
-##### In src directory -> navigate to artGallery
-##### cd src/artGallery
+#### In src directory -> navigate to artGallery
+#### cd src/artGallery
+
 
 ```
 python3 manage.py runserver <port number>
 
 ```
-##### The following output is an example of a normal server run
+OR
+
+```
+python3 manage.py runserver
+```
+
+#### The default port is 8000, so if you just run without specifying a port number it will be running on port 8000
+#### The following output is an example of a normal server run
 
 ```
 python3 manage.py runserver 8000
