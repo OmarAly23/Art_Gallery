@@ -126,23 +126,21 @@
                 </ul>
             </div>
         </div>
-
-
+<!--../static/admin/img/sixTusanPoets.jpg-->
             <div class="row portfolio-container">
                 {% for record in records %}
-                    <div class="col-lg-4 col-md-6 portfolio-item renaissance" >
+                    <div class="col-lg-4 col-md-6 portfolio-item renaissance">
                         <div class="portfolio-wrap">
-                            <a href="../static/admin/img/sixTusanPoets.jpg" class="glightbox2"
-                                data-glightbox="title: {{ record.art_title }}; description: .custom-desc1; descPosition: left;">
+                            <a href="data:image/jpg;base64,{{ record.art_document | bin_2_img }}" class="glightbox2"
+                                data-glightbox="title: {{ record.art_title }}; description: .{{ record.artist_id }}; descPosition: left;">
                                 <img src="data:image/jpg;base64,{{ record.art_document | bin_2_img }}" alt="image" class="img-fluid" />
                             </a>
-                            <div class="glightbox-desc custom-desc1">
+                            <div class="glightbox-desc {{ record.artist_id }}">
                                  {{ record.art_title }} by {{ record.artist }}, {{ record.art_description }}
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-
             </div>
     </div>
 </section>
