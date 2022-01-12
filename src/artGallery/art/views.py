@@ -19,7 +19,7 @@ collection_name = dbname['User']
 # Create your views here.
 
 def index(request):
-    # you first wanna make sure if there is an active session or not
+    # you first want to make sure if there is an active session or not
     if 'user' in request.session:
         # user is logged in
         # and session is live
@@ -29,48 +29,32 @@ def index(request):
             'name': name[0]
         }
 
-        # list_result = list(result)
-        # print(f'{list_result[2]["_id"]}')
-        # for l in list_result:
-        #     print(f'l of art title is {l["art_title"]}')
-        #     retval = c.ChainMap(l)
-        # print(f'retval is: {retval}')
         return render(request, '../templates/index.html', param)
 
-    # collection_name2 = dbname['art']
-    # result = collection_name2.find({})
-    # result should contain all the art related attributes in the art table in the form of a dictionary
-    # to send and display in index.html aka the homepage
-    # json_list = dumps(list_result)
-    # print(f'The entire homepage art list: {json_list}')
-    # user is not logged in
-    collection_name2 = dbname['art']
-    result = collection_name2.find({})
-    # for element in result:
-    #     print(element)
-    # print(result)
-    data = {
-        'records': result,
-    }
-
     if request.method == 'POST':
-        fname = request.POST['fname']
-        lname = request.POST['lname']
+        name = request.POST['name']
         email = request.POST['email']
         msg = request.POST['message']
         contact_to_be_added = {
-            "fname": fname,
-            "lname": lname,
+            "fname": name,
             "email": email,
             "msg": msg,
         }
-
         collection_nameC = dbname['contact']
         collection_nameC.insert_one(contact_to_be_added)
-    return render(request, '../templates/index.html')
+
+    collection_name_art = dbname['art']
+    # result is a cursor pointing to all records in art table
+    # we only want records from 1 to 5
+    # skipping 0 and 4
+    result = collection_name_art.find({})
+    data = {
+        'records': result,
+    }
+    return render(request, '../templates/index.html', data)
 
 
-
+# A testing function
 # should try and send all art records to the homepage for display
 def send_art(request):
     collection_name2 = dbname['art']

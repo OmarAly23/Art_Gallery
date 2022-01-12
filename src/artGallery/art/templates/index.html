@@ -1,4 +1,5 @@
 <!doctype html>
+{% load home_extras %}
 <html lang="en">
 <head>
 
@@ -10,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
-    <script src="https://kit.fontawesome.com/5796437478.js" crossorigin="anonymous"></script>
     <link href="../static/admin/css/style2.css" rel="stylesheet">
     <title>Home | Artistry Ave</title>
 </head>
@@ -130,232 +130,57 @@
 
             <div class="row portfolio-container">
                 {% for record in records %}
-                <div class="col-lg-4 col-md-6 portfolio-item renaissance" >
-                    <div class="portfolio-wrap">
-                        <a href="../static/admin/img/sixTusanPoets.jpg" class="glightbox2"
-                            data-glightbox="title: {{ record.art_title }}; description: .custom-desc1; descPosition: left;">
-                            <img src="data:image/jpg;base64,{{ record.art_document }}" alt="image" class="img-fluid" />
-                        </a>
-                        <div class="glightbox-desc custom-desc1">
-                             {{ record.art_title }} by {{ record.artist }}, {{ record.art_description }}
+                    <div class="col-lg-4 col-md-6 portfolio-item renaissance" >
+                        <div class="portfolio-wrap">
+                            <a href="../static/admin/img/sixTusanPoets.jpg" class="glightbox2"
+                                data-glightbox="title: {{ record.art_title }}; description: .custom-desc1; descPosition: left;">
+                                <img src="data:image/jpg;base64,{{ record.art_document | bin_2_img }}" alt="image" class="img-fluid" />
+                            </a>
+                            <div class="glightbox-desc custom-desc1">
+                                 {{ record.art_title }} by {{ record.artist }}, {{ record.art_description }}
+                            </div>
                         </div>
-
                     </div>
-                </div>
                 {% endfor %}
 
-<!--                <div class="col-lg-4 col-md-6 portfolio-item renaissance">-->
-<!--                    <div class="portfolio-wrap">-->
-<!--                        <a href="../static/admin/img/VirginOfTheRocks.jpg" class="glightbox2"-->
-<!--                            data-glightbox="title: Virgin Of The Rocks; description: .custom-desc2; descPosition: left;">-->
-<!--                            <img src="../static/admin/img/VirginOfTheRocks.jpg" alt="image" class="img-fluid" />-->
-<!--                        </a>-->
-<!--                        <div class="glightbox-desc custom-desc2">-->
-<!--                            -->
-<!--                            <strong>Virgin of the Rocks (1503-1506) by Leonardo da Vinci</strong> <p></p>-->
-<!--                            <p>When we look at Virgin of the Rocks, the subject matter of this painting is the Virgin Mother Mary with two infants: one is Jesus Christ, and the other is John the Baptist. They are accompanied by the archangel Gabriel to the right-hand side. The environment around the figures is quite mysterious in nature, depicting various rocky, almost cave-like structures in the background with a pool of water and some foliage with rocks in the foreground.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 portfolio-item surrealism">-->
-<!--                    <div class="portfolio-wrap">-->
-<!--                        <a href="../static/admin/img/SonOfMan.jpg" class="glightbox2"-->
-<!--                            data-glightbox="title: Son Of Man; description: .custom-desc3; descPosition: left;">-->
-<!--                            <img src="../static/admin/img/SonOfMan.jpg" alt="image" class="img-fluid" />-->
-<!--                        </a>-->
-<!--                        <div class="glightbox-desc custom-desc3">-->
-<!--                            -->
-<!--                            <strong>Son 0f Man (1956) by {{ art_title }}</strong> <p></p>-->
-<!--                            <blockquote class="blockquote">{{ art_description }}</blockquote>-->
-<!--                                <figcaption class="blockquote-footer">-->
-<!--                                     Rene Magritte-->
-<!--                                  </figcaption>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 portfolio-item surrealism">-->
-<!--                    <div class="portfolio-wrap">-->
-<!--                        <a href="../static/admin/img/thePresistenceOfMemory.jpg" class="glightbox2"-->
-<!--                            data-glightbox="title: The Presistence of Memory; description: .custom-desc4; descPosition: left;">-->
-<!--                            <img src="../static/admin/img/thePresistenceOfMemory.jpg" alt="image" class="img-fluid" />-->
-<!--                        </a>-->
-<!--                        <div class="glightbox-desc custom-desc4">-->
-<!--                            -->
-<!--                            <strong>The Presistence of Memory (1931) Salvador Dali</strong> <p></p>-->
-<!--                            <p>Those limp watches are as soft as overripe cheese—indeed, they picture “the camembert of time,” in Dalí&apos;s-->
-<!--                                phrase. Here time must lose all meaning. Permanence goes with it: ants, a common theme in Dalí&apos;s work,-->
-<!--                                represent decay, particularly when they attack a gold watch, and they seem grotesquely organic. The monstrous fleshy-->
-<!--                                creature draped across the painting&apos;s center is at once alien and familiar: an approximation of Dalí&apos;s own-->
-<!--                                face in profile, its long eyelashes seem disturbingly insect-like or even sexual, as does what may or may not be a-->
-<!--                                tongue oozing from its nose like a fat snail.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 portfolio-item romanticism">-->
-<!--                    <div class="portfolio-wrap">-->
-<!--                        <a href="../static/admin/img/Liberty.jpg" class="glightbox2"-->
-<!--                            data-glightbox="title: Liberty Leading the People; description: .custom-desc5; descPosition: left;">-->
-<!--                            <img src="../static/admin/img/Liberty.jpg" alt="image" class="img-fluid" />-->
-<!--                        </a>-->
-<!--                        <div class="glightbox-desc custom-desc5">-->
-<!--                            -->
-<!--                            <strong>Liberty Leading the People (1830) by Eugene Delacroix</strong> <p></p>-->
-<!--                            <p>Liberty Leading the People (1830) by Eugène Delacroix, depicting the theater of war during the French July Revolution (July 28, 1830)</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 portfolio-item romanticism">-->
-<!--                    <div class="portfolio-wrap">-->
-<!--                        <a href="../static/admin/img/wanderer.jpg" class="glightbox2"-->
-<!--                            data-glightbox="title: Wanderer Above the Sea of Fog; description: .custom-desc6; descPosition: left;">-->
-<!--                            <img src="../static/admin/img/wanderer.jpg" alt="image" class="img-fluid" />-->
-<!--                        </a>-->
-<!--                        <div class="glightbox-desc custom-desc6">-->
-<!--                            -->
-<!--                            <strong>Wanderer Above the Sea of Fog (1818) by Caspar David Friedrich</strong> <p></p>-->
-<!--                            <p>The painting was done during a time in which exploration was largely romanticized by much of Europe and the United-->
-<!--                                States. Friedrich&apos;s work appears to convey the sense of wonder and adventure that was so often sought after among-->
-<!--                                the many explorers of the early 19th century.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
             </div>
-
-
-
-
     </div>
 </section>
 
 
 <section id="contact" class="contact">
-    <!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted">
-  <!-- Section: Social media -->
-  <section
-    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
-  >
-    <!-- Left -->
-    <div class="me-5 d-none d-lg-block">
-      <span>Get connected with us on social networks:</span>
-    </div>
-    <!-- Left -->
-
-    <!-- Right -->
-    <div>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <!-- Right -->
-  </section>
-  <!-- Section: Social media -->
-
-  <!-- Section: Links  -->
-  <section class="">
-    <div class="container text-center text-md-start mt-5">
-      <!-- Grid row -->
-      <div class="row mt-3">
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>Artistry Ave
-          </h6>
-          <p>
-            Aya & Omar's project for CS470 using NOSQL database, MongoDB to build a full stack web application servicing the art and artists field
-          </p>
+    <div class="container">
+        <div class="section-title">
+            <h2>Contact</h2>
         </div>
-        <!-- Grid column -->
 
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-2">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            LINKS
-          </h6>
-          <p>
-            <a href="#main" class="text-reset">Home</a>
-          </p>
-          <p>
-            <a href="#artists" class="text-reset">Artists</a>
-          </p>
-          <p>
-            <a href="#art" class="text-reset">Art</a>
-          </p>
-          <p>
-            <a href="#contact" class="text-reset">Contact Us</a>
-          </p>
-            <p>
-            <a href="{% url 'sign_in' %}" class="text-reset">Log In</a>
-          </p>
+        <div class="col-lg-8 mt-5 mt-lg-0 ">
+
+            <form action="{% url 'index' %}" method="post" role="form" class="form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6 form-group mt-3 mt-md-0">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                               required>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group mt-3">
+                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+
         </div>
-        <!-- Grid column -->
 
-
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            Contact
-          </h6>
-            <form action="{% url 'index' %}" method="post" class="row g-3" >
-                                {% csrf_token %}
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="First name" aria-label="First name" id="fname" name="fname">
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="lname" name="lname">
-                </div>
-                <div class="col-sm-12">
-                    <input type="email" class="form-control"  placeholder="Your email"
-                           aria-label="Your email" id="email"   name="email">
-                </div>
-                <div class="col-sm-12">
-                    <textarea class="form-control" aria-label="Your message" placeholder="Your message" id="message" name="message"></textarea>
-            </div>
-                <center>
-                    <div class="col-12">
-                    <button class="btn btn-primary w-50" type="submit">Send</button>
-                </div>
-                </center>
-
-        <!-- Grid column -->
-      </form>
-      <!-- Grid row -->
     </div>
-  </section>
-  <!-- Section: Links  -->
-
-  <!-- Copyright -->
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2021 Copyright:
-      <span class="text-reset fw-bold">
-          CS470 Databases
-      </span>
-
-  </div>
-  <!-- Copyright -->
-</footer>
-<!-- Footer -->
 
 </section>
 
