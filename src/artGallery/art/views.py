@@ -25,10 +25,15 @@ def index(request):
         # and session is live
         current_user = request.session['user']
         name = current_user.split('@')
+        collection_name_art = dbname['art']
+        # result is a cursor pointing to all records in art table
+        # we only want records from 1 to 5
+        # skipping 0 and 4
+        result = collection_name_art.find({})
         param = {
-            'name': name[0]
+            'name': name[0],
+            'records': result,
         }
-
         return render(request, '../templates/index.html', param)
 
     if request.method == 'POST':
