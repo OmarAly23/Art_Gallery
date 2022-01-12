@@ -1,14 +1,25 @@
 # CS470_DatabasesProject
 
-## Project Overview[^1]
-
-[^1]: ##### A system that allows users to connect with and explore their favourite art and artists.
-	##### Enables for seamless interaction in browsing and keeping up with user-specific targetted art.
+# Artistry Ave
 
 > Contributed By: 
 > Omar Aly & Aya al-sakkaf
 
+# Built With
+- Django (python web framework)
+- MongoDB (Document-based NOSQL database)
+- HTML, CSS, Javascript
+
+
 ## How to use:
+
+### First to make sure you have all the right packages
+### To successfully run the django server with mongoDB, some packages are needed.
+### requirements.txt contains all the required packages to run django (if you've never used django) and mongoDB 
+```
+pip install -r requirements.txt
+```
+
 
 ##### In src directory -> navigate to artGallery
 ##### cd src/artGallery
