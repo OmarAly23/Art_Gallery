@@ -236,12 +236,10 @@
           </h6>
             <form action="{% url 'index' %}" method="post" class="row g-3" >
                                 {% csrf_token %}
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="First name" aria-label="First name" id="fname" name="fname">
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" placeholder="Your name" aria-label="Your name" id="yname" name="yname">
                 </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="lname" name="lname">
-                </div>
+
                 <div class="col-sm-12">
                     <input type="email" class="form-control"  placeholder="Your email"
                            aria-label="Your email" id="email"   name="email">
