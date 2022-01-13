@@ -131,11 +131,11 @@
                 {% for record in records %}
                     <div class="col-lg-4 col-md-6 portfolio-item renaissance">
                         <div class="portfolio-wrap">
-                            <a href="data:image/jpg;base64,{{ record.art_document | bin_2_img }}" class="glightbox2"
-                                data-glightbox="title: {{ record.art_title }}; description: .{{ record.artist_id }}; descPosition: left;">
-                                <img src="data:image/jpg;base64,{{ record.art_document | bin_2_img }}" alt="image" class="img-fluid" />
+                            <a href="{{record.s3}}" class="glightbox2"
+                                data-glightbox="title: {{ record.art_title }}; description: {{ record.art_description }}; descPosition: left;">
+                                <img src="{{record.s3}}" alt="image" class="img-fluid" />
                             </a>
-                            <div class="glightbox-desc {{ record.artist_id }}">
+                            <div class="glightbox-desc {{ record.art_description }}">
                                  {{ record.art_title }} by {{ record.artist }}, {{ record.art_description }}
                             </div>
                         </div>
@@ -147,38 +147,132 @@
 
 
 <section id="contact" class="contact">
-    <div class="container">
-        <div class="section-title">
-            <h2>Contact</h2>
-        </div>
-
-        <div class="col-lg-8 mt-5 mt-lg-0 ">
-
-            <form action="{% url 'index' %}" method="post" role="form" class="form">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="col-md-6 form-group mt-3 mt-md-0">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
-                               required>
-                    </div>
-                </div>
-                <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                </div>
-                <div class="form-group mt-3">
-                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit">Send Message</button>
-                </div>
-            </form>
-
-        </div>
-
+    <!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section
+    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+  >
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+      <span>Get connected with us on social networks:</span>
     </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Artistry Ave
+          </h6>
+          <p>
+            Aya & Omar's project for CS470 using NOSQL database, MongoDB to build a full stack web application servicing the art and artists field
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-2">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            LINKS
+          </h6>
+          <p>
+            <a href="#main" class="text-reset">Home</a>
+          </p>
+          <p>
+            <a href="#artists" class="text-reset">Artists</a>
+          </p>
+          <p>
+            <a href="#art" class="text-reset">Art</a>
+          </p>
+          <p>
+            <a href="#contact" class="text-reset">Contact Us</a>
+          </p>
+            <p>
+            <a href="{% url 'sign_in' %}" class="text-reset">Log In</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Contact
+          </h6>
+            <form action="{% url 'index' %}" method="post" class="row g-3" >
+                                {% csrf_token %}
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="First name" aria-label="First name" id="fname" name="fname">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="lname" name="lname">
+                </div>
+                <div class="col-sm-12">
+                    <input type="email" class="form-control"  placeholder="Your email"
+                           aria-label="Your email" id="email"   name="email">
+                </div>
+                <div class="col-sm-12">
+                    <textarea class="form-control" aria-label="Your message" placeholder="Your message" id="message" name="message"></textarea>
+            </div>
+                <center>
+                    <div class="col-12">
+                    <button class="btn btn-primary w-50" type="submit">Send</button>
+                </div>
+                </center>
+
+        <!-- Grid column -->
+      </form>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2021 Copyright:
+      <span class="text-reset fw-bold">
+          CS470 Databases
+      </span>
+
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
 
 </section>
 
