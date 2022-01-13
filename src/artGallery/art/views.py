@@ -37,13 +37,13 @@ def index(request):
         return render(request, '../templates/index.html', param)
 
     if request.method == 'POST':
-        name = request.POST['name']
-        email = request.POST['email']
-        msg = request.POST['message']
+        nameC = request.POST['fname']
+        emailC = request.POST['email']
+        msgC = request.POST['message']
         contact_to_be_added = {
-            "fname": name,
-            "email": email,
-            "msg": msg,
+            "fname": nameC,
+            "email": emailC,
+            "msg": msgC,
         }
         collection_nameC = dbname['contact']
         collection_nameC.insert_one(contact_to_be_added)
