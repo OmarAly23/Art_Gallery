@@ -26,9 +26,6 @@ def index(request):
         current_user = request.session['user']
         name = current_user.split('@')
         collection_name_art = dbname['art']
-        # result is a cursor pointing to all records in art table
-        # we only want records from 1 to 5
-        # skipping 0 and 4
         result = collection_name_art.find({})
         param = {
             'name': name[0],
@@ -134,7 +131,7 @@ def sign_up(request):
         if retval == 0:
             print(f'Before we insert value, print retval: {retval}')
             collection_name.insert_one(user_to_be_added)
-            return render(request, '../templates/success.html')
+            return render(request, '../templates/logIn.html')
         else:
             print(f'Before we insert value, print retval: {retval}')
             return render(request, '../templates/error.html')
