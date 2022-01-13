@@ -37,7 +37,7 @@ def index(request):
         return render(request, '../templates/index.html', param)
 
     if request.method == 'POST':
-        nameC = request.POST['fname']
+        nameC = request.POST['yname']
         emailC = request.POST['email']
         msgC = request.POST['message']
         contact_to_be_added = {
