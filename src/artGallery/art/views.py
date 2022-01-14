@@ -151,4 +151,8 @@ def sign_up(request):
 
 
 
+# Create an artist page
+# def artist(request):
 
+# create a bookmark page for user
+# def bookmark(request):

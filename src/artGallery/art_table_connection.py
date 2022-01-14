@@ -90,7 +90,5 @@ print(count)
 result = collection_name.find({})
 
 for element in result:
-    plt_img = Image.open(io.BytesIO(element['art_document']))
-    plt.imshow(plt_img)
-    plt.show()
+    print(element)
 
