@@ -159,4 +159,15 @@ def artist(request, name):
 
 # create a bookmark page for user
 def bookmark(request):
-    return render(request, '../templates/bookmark.html')
+    if 'user' in request.session:
+        current_user = request.session['user']
+        print(current_user)
+        collection_name_userArt = dbname['User']
+        userRecord = collection_name_userArt.find_one({"email_id": current_user})
+        fname = userRecord['first_name']
+        param = {
+            'name': fname,
+            'records': userRecord
+        }
+        return render(request, '../templates/bookmark.html', param)
+    return render(request, '../templates/error.html')
