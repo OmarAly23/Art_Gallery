@@ -38,6 +38,18 @@
 
                           <form action="{% url 'sign_up' %}" method="post" class="row g-3" >
                                 {% csrf_token %}
+
+                            <div class="col-12">
+                              <label for="fname" class="form-label">First name</label>
+                              <input type="text" name="fname" class="form-control" id='fname' required>
+                            </div>
+
+                            <div class="col-12">
+                              <label for="lname" class="form-label">Last name</label>
+                              <input type="text" name="lname" class="form-control" id='lname' required>
+                            </div>
+
+
                             <div class="col-12">
                               <label for="email" class="form-label">Email</label>
                               <div class="input-group has-validation">

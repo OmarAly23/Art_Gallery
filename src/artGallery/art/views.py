@@ -72,6 +72,7 @@ def send_art(request):
 # should take in the values
 def sign_in(request):
     if request.method == 'POST':
+        print('HI')
         # check if user is already registered
         # else send him to the sign up page
         # need to make sure that same user cannot register twice
@@ -93,12 +94,14 @@ def sign_in(request):
             validate_pass = collection_name.find(user_record).count()
             if validate_pass == 1:
                 request.session['user'] = email
-                name = email.split('@')
+                collection_name_user = dbname['User']
+                userRecord = collection_name_user.find_one({"email_id": email})
+                fname = userRecord['first_name']
                 collection_name_art = dbname['art']
                 result = collection_name_art.find({})
                 param = {
                     'email': email,
-                    'name': name[0],
+                    'name': fname,
                     'records': result,
                 }
                 print(f'the current user logged in: {request.session["user"]}')
@@ -120,11 +123,15 @@ def log_out(request):
 
 def sign_up(request):
     if request.method == 'POST':
+        fname = request.POST['fname']
+        lname = request.POST['lname']
         em = request.POST['email']
         passw = request.POST['password']
         user_to_be_added = {
             "email_id": em,
-            "password": passw
+            "password": passw,
+            "first_name": fname,
+            "last_name": lname
         }
         # you cannot use the same email twice
         # check if the email is already registered
