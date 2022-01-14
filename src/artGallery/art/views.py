@@ -150,10 +150,13 @@ def sign_up(request):
 
 
 
+def artist(request, name):
+    print(name)
+    artistName = {
+        'name': name
+    }
+    return render(request, '../templates/artist.html', artistName)
 
-# Create an artist page
-def artist(request):
-    return render(request, '../templates/artist.html')
 
 # create a bookmark page for user
 def bookmark(request):

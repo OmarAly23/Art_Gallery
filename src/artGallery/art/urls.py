@@ -7,6 +7,6 @@ urlpatterns = [
     path('login/', views.sign_in, name='sign_in'),
     path('sign_up/', views.sign_up, name='sign_up'),
     path('log_out/', views.log_out, name='log_out'),
-    path('artist/', views.artist, name='artist'),
-    path('bookmark/', views.artist, name='bookmark')
+    path('artist/<name>', views.artist, name='artist'),
+    path('bookmark/', views.bookmark, name='bookmark')
 ]
