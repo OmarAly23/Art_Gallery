@@ -151,7 +151,6 @@ def sign_up(request):
 
 
 def artist(request, name):
-    print(name)
     artistName = {
         'name': name
     }

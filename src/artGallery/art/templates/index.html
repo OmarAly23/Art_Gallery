@@ -143,9 +143,6 @@
                                 data-glightbox="title: {{ record.art_title }}; description: {{ record.art_description }}; descPosition: left;">
                                 <img src="{{record.s3}}" alt="image" class="img-fluid" />
                             </a>
-                            <div class="glightbox-desc {{ record.art_description }}">
-                                 {{ record.art_title }} by {{ record.artist }}, {{ record.art_description }}
-                            </div>
                         </div>
                     </div>
                 {% endfor %}
