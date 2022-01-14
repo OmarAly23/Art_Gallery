@@ -1,5 +1,5 @@
 <!doctype html>
-{% load home_extras %}
+{% load artistPage %}
 <html lang="en">
 <head>
 
@@ -77,14 +77,18 @@
                     <div class="content">
                         <h2 class="title">Leonardo Davinci</h2>
                         <p class="copy">Mona Lisa</p>
-                        <button class="btn bttnn">Go to Page</button>
+                        {% with name="Leonardo Davinci" %}
+                        <a href="{% url 'artist' name %}"><button class="btn bttnn">Go to Page</button></a>
+                        {% endwith %}
                     </div>
                 </div>
                 <div class="card artist">
                     <div class="content">
                         <h2 class="title">Salvador Dali</h2>
                         <p class="copy">Mona Lisa</p>
-                        <button class="btn bttnn">Go to Page</button>
+                        {% with name="Salvador Dali" %}
+                        <a href="{% url 'artist' name %}"><button class="btn bttnn">Go to Page</button></a>
+                        {% endwith %}
                     </div>
                 </div>
 
@@ -92,14 +96,18 @@
                     <div class="content">
                         <h2 class="title">Pablo Picasso</h2>
                         <p class="copy">Mona Lisa</p>
-                        <button class="btn bttnn">Go to Page</button>
+                        {% with name="Pablo Picasso" %}
+                        <a href="{% url 'artist' name %}"><button class="btn bttnn">Go to Page</button></a>
+                        {% endwith %}
                     </div>
                 </div>
                <div class="card artist">
                     <div class="content">
                         <h2 class="title">Frida Kahlo</h2>
-                        <p class="copy">Mona Lisa</p>
-                        <button class="btn bttnn">Go to Page</button>
+                        <p class="copy">Frida Kahlo</p>
+                        {% with name="Leonardo Davinci" %}
+                        <a href="{% url 'artist' name %}"><button class="btn bttnn">Go to Page</button></a>
+                        {% endwith %}
                     </div>
                 </div>
             </main>
