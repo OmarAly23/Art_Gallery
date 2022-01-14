@@ -7,8 +7,6 @@ urlpatterns = [
     path('login/', views.sign_in, name='sign_in'),
     path('sign_up/', views.sign_up, name='sign_up'),
     path('log_out/', views.log_out, name='log_out'),
-    # path('testcookie/', views.cookie_session),
-    # path('deletecookie/', views.cookie_delete),
-    # path('create/', views.create_session),
-    # path('access/', views.access_session),
+    path('artist/', views.artist, name='artist'),
+    path('bookmark/', views.artist, name='bookmark')
 ]

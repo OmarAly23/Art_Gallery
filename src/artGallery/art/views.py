@@ -152,7 +152,9 @@ def sign_up(request):
 
 
 # Create an artist page
-# def artist(request):
+def artist(request):
+    return render(request, '../templates/artist.html')
 
 # create a bookmark page for user
-# def bookmark(request):
+def bookmark(request):
+    return render(request, '../templates/bookmark.html')
