@@ -94,9 +94,12 @@ def sign_in(request):
             if validate_pass == 1:
                 request.session['user'] = email
                 name = email.split('@')
+                collection_name_art = dbname['art']
+                result = collection_name_art.find({})
                 param = {
                     'email': email,
-                    'name': name[0]
+                    'name': name[0],
+                    'records': result,
                 }
                 print(f'the current user logged in: {request.session["user"]}')
                 return render(request, '../templates/index.html', param)
@@ -133,7 +136,7 @@ def sign_up(request):
             collection_name.insert_one(user_to_be_added)
             return render(request, '../templates/logIn.html')
         else:
-            print(f'Before we insert value, print retval: {retval}')
+            print(f'Error side, print retval: {retval}')
             return render(request, '../templates/error.html')
         print('User has been added!')
     return render(request, '../templates/signUp.html')
