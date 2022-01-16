@@ -5,6 +5,7 @@ from bson.json_util import dumps, loads
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import logout
+
 # import sys
 # sys.path.append('..')
 # sys.path.append('.')
@@ -68,6 +69,7 @@ def send_art(request):
         print(f'l of art title is {l["art_title"]}')
 
     return HttpResponse(list_result)
+
 
 # should take in the values
 def sign_in(request):
@@ -149,12 +151,14 @@ def sign_up(request):
     return render(request, '../templates/signUp.html')
 
 
-
 def artist(request, name):
-    artistName = {
-        'name': name
+    collection_name_art = dbname["art"]
+    retval = collection_name_art.find({"artist": name})
+    artistRec = {
+        "records": retval
     }
-    return render(request, '../templates/artist.html', artistName)
+
+    return render(request, '../templates/artist.html', artistRec)
 
 
 # create a bookmark page for user
