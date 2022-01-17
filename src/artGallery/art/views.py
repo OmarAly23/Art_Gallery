@@ -169,9 +169,38 @@ def bookmark(request):
         collection_name_userArt = dbname['User']
         userRecord = collection_name_userArt.find_one({"email_id": current_user})
         fname = userRecord['first_name']
-        param = {
-            'name': fname,
-            'records': userRecord
+
+        # mongodb pipeline to look the user's fave art from the art collection
+        art_lookup = {
+            "$lookup": {
+                'from': 'art',
+                'localField': 'favourite',
+                'foreignField': '_id',
+                'as': 'results'
+            }
         }
+
+        # mongodb pipline to match the result to the current user's email
+        user_match = {
+            "$match": {
+                "email_id": current_user
+            }
+        }
+
+        # pipeline here combines the art look up and retrieves only the logged in user's fave art because of the match condition
+        pipeline = [
+            art_lookup,
+            user_match
+        ]
+
+        results = collection_name_userArt.aggregate(pipeline)
+        for item in results:
+            print(item)
+
+        param = {
+            'firstName': fname,
+            'fave': results
+        }
+
         return render(request, '../templates/bookmark.html', param)
     return render(request, '../templates/error.html')
