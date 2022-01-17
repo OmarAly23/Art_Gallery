@@ -197,6 +197,9 @@ def bookmark(request):
         for item in results:
             print(item)
 
+
+        # results is a pymongo cursor, in order to send the user's favourited art to the bookmark page, we need to access the results
+        # field in the cursor
         param = {
             'firstName': fname,
             'fave': results
