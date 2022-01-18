@@ -152,11 +152,15 @@ def sign_up(request):
 
 
 def artist(request, name):
-    collection_name_art = dbname["art"]
-    retval = collection_name_art.find({"artist": name})
+    collection_name_art = dbname["Artist"]
+    retval = collection_name_art.find({"name": name})
+
     artistRec = {
-        "records": retval
+        'records': list(retval)
     }
+
+    for items in retval:
+        print(items)
 
     return render(request, '../templates/artist.html', artistRec)
 
