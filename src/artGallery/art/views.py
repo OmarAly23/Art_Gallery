@@ -211,3 +211,25 @@ def bookmark(request):
 
         return render(request, '../templates/bookmark.html', param)
     return render(request, '../templates/error.html')
+
+
+
+
+def addToFav(request, button_id):
+    if 'user' in request.session:
+        if request.method == 'POST':
+            print(button_id)
+            print(list(request.POST.items()))
+            email = request.session['user']
+            collection_name_user = dbname['User']
+            userRecord = collection_name_user.find_one({"email_id": email})
+            fname = userRecord['first_name']
+            collection_name_art = dbname['art']
+            result = collection_name_art.find({})
+            param = {
+                'email': email,
+                'name': fname,
+                'records': result,
+            }
+            return render(request, './index.html', param)
+    return render(request, './error.html')

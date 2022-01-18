@@ -141,7 +141,6 @@
                 </ul>
             </div>
         </div>
-<!--../static/admin/img/sixTusanPoets.jpg-->
             <div class="row portfolio-container">
                 {% for record in records %}
                     <div class="col-lg-4 col-md-6 portfolio-item renaissance">
@@ -150,6 +149,10 @@
                                 data-glightbox="title: {{ record.art_title }}; description: {{ record.art_description }}; descPosition: left;">
                                 <img src="{{record.s3}}" alt="image" class="img-fluid" />
                             </a>
+<!--                            <form action="{% url 'addToFav' record.artist_id %}" method="POST">-->
+<!--                                {% csrf_token %}-->
+<!--                                <button id="{{ record.artist_id }}" type="submit" class="btn btn-outline-success">Add to favourites</button>-->
+<!--                            </form>-->
                         </div>
                     </div>
                 {% endfor %}
