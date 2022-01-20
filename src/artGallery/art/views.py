@@ -22,6 +22,15 @@ collection_name = dbname['User']
 def index(request):
     # you first want to make sure if there is an active session or not
     if 'user' in request.session:
+        # check if an user is an admin too or not
+        try:
+            result = collection_name_admin = dbname['admin']
+            if result is not None:
+                flag = 1
+            else:
+                flag = 0
+        except:
+            return render(request, './error.html')
         # user is logged in
         # and session is live
         current_user = request.session['user']
@@ -31,6 +40,7 @@ def index(request):
         param = {
             'name': name[0],
             'records': result,
+            'flag': flag
         }
         return render(request, '../templates/index.html', param)
 
@@ -241,9 +251,11 @@ def addToFav(request, button_id):
             art_id = res['_id']
             try:
 
-                collection_name_user.insert_one(
+                collection_name_user.update_one(
                     {'email_id': email},
-                     {'$push': {'favourite': [art_id]}}
+                     {'$push':
+                          {'favourite':[art_id]}
+                      }
                 )
                 print('Inserted into user')
             except:
@@ -256,7 +268,6 @@ def addToFav(request, button_id):
 
 def admin(request):
     if 'user' in request.session:
-
         try:
             collection_name_admin = dbname['admin']
             # get user collection
@@ -264,9 +275,9 @@ def admin(request):
             result = collection_name_admin.find({})
             tmp = collection_name_admin.find({})
             tmp = list(tmp)
-            print('print tmp list')
-            print(tmp)
-            print(tmp[0]['user_id'])
+            # print('print tmp list')
+            # print(tmp)
+            # print(tmp[0]['user_id'])
             userID = tmp[0]['user_id']
 
             # get corresponding user data
@@ -282,7 +293,7 @@ def admin(request):
         print(result)
         param = {
             'userRec': userResult,
-            'records': result,
+            'adminRecords': result,
         }
         return render(request, './admin.html', param)
 
