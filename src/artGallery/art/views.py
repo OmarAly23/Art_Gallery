@@ -179,25 +179,30 @@ def artist(request, name):
 def bookmark(request):
     if 'user' in request.session:
         current_user = request.session['user']
-        print(current_user)
+        # print(current_user)
         collection_name_userArt = dbname['User']
         userRecord = collection_name_userArt.find_one({"email_id": current_user})
         fname = userRecord['first_name']
 
         dict = []
         collection_name_art = dbname['art']
-
+        count = 0
         for record in userRecord['favourite']:
+            print(f'printing record {record}')
+            count += 1
             dict.append(collection_name_art.find_one({'_id': record}))
 
-
+        print('printing Dict now')
         # print(dict)
+        for d in dict:
+            print(d)
         # # userRecord = list(userRecord)
         # print(userRecord['favourite'])
 
         param = {
             'firstName': fname,
-            'favourite': dict
+            'favourite': dict,
+            'counter': count
         }
 
         # param = {
