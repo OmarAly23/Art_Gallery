@@ -218,6 +218,7 @@ def bookmark(request):
 def addToFav(request, button_id):
     if 'user' in request.session:
         if request.method == 'POST':
+            print('About to print something')
             print(button_id)
             print(list(request.POST.items()))
             email = request.session['user']
@@ -231,5 +232,58 @@ def addToFav(request, button_id):
                 'name': fname,
                 'records': result,
             }
-            return render(request, './index.html', param)
+            # insert into User's favourites
+            res = collection_name_art.find_one({'artist_id': button_id})
+            # collection_name_art.replace_one()
+            # try replacing array
+            print(list(res))
+            print(res['_id'])
+            art_id = res['_id']
+            try:
+
+                collection_name_user.insert_one(
+                    {'email_id': email},
+                     {'$push': {'favourite': [art_id]}}
+                )
+                print('Inserted into user')
+            except:
+                print('error inserting')
+                return render(request, './error.html')
+
+            return render(request, './success.html')
+    return render(request, './permissionDenied.html')
+
+
+def admin(request):
+    if 'user' in request.session:
+
+        try:
+            collection_name_admin = dbname['admin']
+            # get user collection
+            collection_name_user = dbname['User']
+            result = collection_name_admin.find({})
+            tmp = collection_name_admin.find({})
+            tmp = list(tmp)
+            print('print tmp list')
+            print(tmp)
+            print(tmp[0]['user_id'])
+            userID = tmp[0]['user_id']
+
+            # get corresponding user data
+            userResult = collection_name_user.find({'_id': userID})
+            # userResult = list(userResult)
+            # print('Attempting to print user result')
+            # print(userResult)
+            if result is not None:
+                print('You are an admin')
+        except:
+            print('could not compute anything')
+            return render(request, './error.html')
+        print(result)
+        param = {
+            'userRec': userResult,
+            'records': result,
+        }
+        return render(request, './admin.html', param)
+
     return render(request, './error.html')

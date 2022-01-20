@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+    {% for record in records %}
+    <P>
+        {{ record }}
+    </P>
+    {% endfor %}
+    <P>Displaying admin info</P>
+    {% for rec in userRec %}
+    <p>
+        First name: {{ rec.first_name }}<br>
+        Last name: {{ rec.last_name }}<br>
+        Email: {{ rec.email_id }}
+    </p>
+    {% endfor %}
+</body>
+</html>
