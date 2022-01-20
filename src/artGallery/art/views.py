@@ -184,40 +184,64 @@ def bookmark(request):
         userRecord = collection_name_userArt.find_one({"email_id": current_user})
         fname = userRecord['first_name']
 
-        # mongodb pipeline to look the user's fave art from the art collection
-        art_lookup = {
-            "$lookup": {
-                'from': 'art',
-                'localField': 'favourite',
-                'foreignField': '_id',
-                'as': 'results'
-            }
-        }
+        dict = []
+        collection_name_art = dbname['art']
 
-        # mongodb pipline to match the result to the current user's email
-        user_match = {
-            "$match": {
-                "email_id": current_user
-            }
-        }
-
-        # pipeline here combines the art look up and retrieves only the logged in user's fave art because of the match condition
-        pipeline = [
-            art_lookup,
-            user_match
-        ]
-
-        results = collection_name_userArt.aggregate(pipeline)
-        for item in results:
-            print(item)
+        for record in userRecord['favourite']:
+            dict.append(collection_name_art.find_one({'_id': record}))
 
 
-        # results is a pymongo cursor, in order to send the user's favourited art to the bookmark page, we need to access the results
-        # field in the cursor
+        # print(dict)
+        # # userRecord = list(userRecord)
+        # print(userRecord['favourite'])
+
         param = {
             'firstName': fname,
-            'fave': results
+            'favourite': dict
         }
+
+        # param = {
+        #     'firstName': fname,
+        #     'favourite': userRecord['favourite']
+        # }
+        #
+        # # mongodb pipeline to look the user's fave art from the art collection
+        # art_lookup = {
+        #     "$lookup": {
+        #         'from': 'art',
+        #         'localField': 'favourite',
+        #         'foreignField': '_id',
+        #         'as': 'results'
+        #     }
+        # }
+        #
+        # # mongodb pipline to match the result to the current user's email
+        # user_match = {
+        #     "$match": {
+        #         "email_id": current_user
+        #     }
+        # }
+        #
+        # # pipeline here combines the art look up and retrieves only the logged in user's fave art because of the match condition
+        # pipeline = [
+        #     art_lookup,
+        #     user_match
+        # ]
+        #
+        # results = collection_name_userArt.aggregate(pipeline)
+        # for item in results:
+        #     print(item)
+        #
+        #
+        #
+        #
+        #
+        # # results is a pymongo cursor, in order to send the user's favourited art to the bookmark page, we need to access the results
+        # # field in the cursor
+        # param = {
+        #     'firstName': fname,
+        #     'fave': results
+        # }
 
         return render(request, '../templates/bookmark.html', param)
     return render(request, '../templates/error.html')
