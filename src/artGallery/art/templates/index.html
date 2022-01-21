@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
     <link href="../static/admin/css/style2.css" rel="stylesheet">
     <title>Home | Artistry Ave</title>
+<!--    <script>-->
+<!--        function AddedToFav() {-->
+<!--            return alert('Added to fav');-->
+<!--        }-->
+<!--    </script>-->
 </head>
 
 <body>
@@ -159,7 +164,7 @@
                             </a>
                             <form action="{% url 'addToFav' record.artist_id %}" method="POST">
                                 {% csrf_token %}
-                                <button id="{{ record.artist_id }}" type="submit" class="btn btn-outline-success">Add to favourites</button>
+                                <button id="{{ record.artist_id }}" type="submit" class="btn btn-outline-success" onclick="AddedToFav()">Add to favourites</button>
                             </form>
                         </div>
                     </div>

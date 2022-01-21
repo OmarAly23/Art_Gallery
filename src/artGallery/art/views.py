@@ -219,6 +219,7 @@ def bookmark(request):
         }
 
         return render(request, '../templates/bookmark.html', param)
+    
     return render(request, '../templates/error.html')
 
 
@@ -321,7 +322,7 @@ def removeFav(request, button_id):
                         {'email_id': user_email},
                         {'$pull':
                              {'favourite': [art_id]}
-                         }
+                        }
                     )
                     print('Delete Succeeded')
                 except:

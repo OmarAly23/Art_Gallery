@@ -112,6 +112,10 @@
                                 data-glightbox="title: {{ record.art_title }}; description: {{ record.art_description }}; descPosition: left;">
                                 <img src="{{record.s3}}" alt="image" class="img-fluid" />
                             </a>
+                            <form action="{% url 'removeFav' record.artist_id %}" method="POST">
+                                {% csrf_token %}
+                                <button id="{{ record.artist_id }}" type="submit" class="btn btn-outline-success">Remove from favourites</button>
+                            </form>
                         </div>
                     </div>
                 {% endfor %}
