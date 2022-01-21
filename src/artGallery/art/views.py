@@ -185,19 +185,30 @@ def bookmark(request):
         fname = userRecord['first_name']
 
         dict = []
+        listOfRecords = []
         collection_name_art = dbname['art']
         count = 0
-        for record in userRecord['favourite']:
+        lRecords = list(userRecord['favourite'])
+
+        # extract the IDs
+        for l in lRecords:
+            if isinstance(l, list):
+                for records in l:
+                    # print(f'Records are {records}')
+                    listOfRecords.append(records)
+            else:
+                listOfRecords.append(l)
+
+        # print(listOfRecords)
+
+        # print(lRecords)
+        for record in listOfRecords:
             print(f'printing record {record}')
             count += 1
-            dict.append(collection_name_art.find_one({'_id': record}))
+            retval = collection_name_art.find_one({"_id": record})
+            # print(f'retval is {retval}')
+            dict.append(retval)
 
-        print('printing Dict now')
-        # print(dict)
-        for d in dict:
-            print(d)
-        # # userRecord = list(userRecord)
-        # print(userRecord['favourite'])
 
         param = {
             'firstName': fname,
