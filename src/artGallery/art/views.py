@@ -276,9 +276,24 @@ def addToFav(request, button_id):
             email = request.session['user']
             collection_name_user = dbname['User']
             userRecord = collection_name_user.find_one({"email_id": email})
-            print(list(userRecord))
-            print(userRecord['favourite'])
+            # print(list(userRecord))
+            # print(userRecord['favourite'])
             listToCheck = list(userRecord['favourite'])
+            listOfRecords = []
+
+            # extract the IDs
+            for l in listToCheck:
+                if isinstance(l, list):
+                    for records in l:
+                        # print(f'Records are {records}')
+                        listOfRecords.append(records)
+                else:
+                    listOfRecords.append(l)
+
+
+            #
+            # print('Printing the list to check')
+            # print(listOfRecords)
             fname = userRecord['first_name']
             collection_name_art = dbname['art']
             result = collection_name_art.find({})
@@ -289,38 +304,43 @@ def addToFav(request, button_id):
             }
             # insert into User's favourites
             res = collection_name_art.find_one({'artist_id': button_id})
-            print(list(res))
-            print(res['_id'])
+            # print(list(res))
+            # print(res['_id'])
             art_id = res['_id']
             try:
 
                 # userInfo = collection_name_user.find({"email_id": email}, {'favourite': [art_id]}).count()
-                for uRec in listToCheck:
+                # print('I should now print the list to check')
+                user_info = 0
+                for uRec in listOfRecords:
                     if uRec == art_id:
-                        userInfo = 1
-                    else:
-                        userInfo = 0
-                print(f'User info is {userInfo}')
-                if userInfo > 0:
+                        print(f'The current record is {uRec} and the art id is {art_id}')
+                        user_info = 1
+
+                print(f'User info is {user_info}')
+                if user_info > 0:
                     # user has already favourited this art
-                    print('This record already exists')
+                    # print('This record already exists')
                     return render(request, './error.html')
                 else:
                     # continue
-                    print('This record does not exist')
+                    # print('This record does not exist')
                     collection_name_user.update_one(
                         {'email_id': email},
                         {'$push':
                              {'favourite': [art_id]}
                          }
                     )
-                    print('Inserted into user')
+                    # print('Inserted into user')
+                    # return render(request, './addedToFav.html')
             except:
                 print('error inserting')
                 return render(request, './error.html')
 
             return render(request, './success.html')
     return render(request, './permissionDenied.html')
+
+
 
 
 def admin(request):
