@@ -296,7 +296,7 @@ def addToFav(request, button_id):
                 return render(request, './error.html')
 
             return render(request, './success.html')
-    return render(request, './permissionDenied.html')
+    return render(request, './logIn.html')
 
 
 def removeFav(request, button_id):
@@ -361,6 +361,34 @@ def admin(request):
             # print(userResult)
             if result is not None:
                 print('You are an admin')
+
+            if request.method == 'POST':
+                collection_name_art = dbname['art']
+                art_count = collection_name_art.find({}).count()
+                artistID = 'R'+str(art_count+3)
+                print(artistID)
+                artTitle = request.POST['artTitle']
+                artist = request.POST['artist']
+                art = request.POST['art']
+                cat = request.POST['artCat']
+                year_C = request.POST['yearCreated']
+                artD = request.POST['artDesc']
+                new_art = {
+                    "artist_id": artistID,
+                    "art_title": artTitle,
+                    "artist": artist,
+                    "art_description": artD,
+                    "s3": art,
+                    "art_category": cat,
+                    "year_created": year_C
+
+                }
+                print("new art has been created")
+                retval = collection_name_art.find({"art_title": artTitle}).count()
+                if retval == 0:
+                    print(f'Before we insert value, print retval: {retval}')
+                    collection_name_art.insert_one(new_art)
+                    print("new art has been added")
         except:
             print('could not compute anything')
             return render(request, './error.html')
