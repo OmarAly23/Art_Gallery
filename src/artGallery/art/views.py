@@ -184,31 +184,33 @@ def bookmark(request):
         userRecord = collection_name_userArt.find_one({"email_id": current_user})
         fname = userRecord['first_name']
 
-        dict = []
-        listOfRecords = []
-        collection_name_art = dbname['art']
-        count = 0
-        lRecords = list(userRecord['favourite'])
+        try:
+            dict = []
+            listOfRecords = []
+            collection_name_art = dbname['art']
+            count = 0
+            lRecords = list(userRecord['favourite'])
 
-        # extract the IDs
-        for l in lRecords:
-            if isinstance(l, list):
-                for records in l:
-                    # print(f'Records are {records}')
-                    listOfRecords.append(records)
-            else:
-                listOfRecords.append(l)
+            # extract the IDs
+            for l in lRecords:
+                if isinstance(l, list):
+                    for records in l:
+                        # print(f'Records are {records}')
+                        listOfRecords.append(records)
+                else:
+                    listOfRecords.append(l)
 
-        # print(listOfRecords)
+            # print(listOfRecords)
 
-        # print(lRecords)
-        for record in listOfRecords:
-            print(f'printing record {record}')
-            count += 1
-            retval = collection_name_art.find_one({"_id": record})
-            # print(f'retval is {retval}')
-            dict.append(retval)
-
+            # print(lRecords)
+            for record in listOfRecords:
+                # print(f'printing record {record}')
+                count += 1
+                retval = collection_name_art.find_one({"_id": record})
+                # print(f'retval is {retval}')
+                dict.append(retval)
+        except:
+            return render(request, './error.html')
 
         param = {
             'firstName': fname,
