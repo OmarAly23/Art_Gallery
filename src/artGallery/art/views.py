@@ -270,12 +270,15 @@ def bookmark(request):
 def addToFav(request, button_id):
     if 'user' in request.session:
         if request.method == 'POST':
-            print('About to print something')
-            print(button_id)
-            print(list(request.POST.items()))
+            # print('About to print something')
+            # print(button_id)
+            # print(list(request.POST.items()))
             email = request.session['user']
             collection_name_user = dbname['User']
             userRecord = collection_name_user.find_one({"email_id": email})
+            print(list(userRecord))
+            print(userRecord['favourite'])
+            listToCheck = list(userRecord['favourite'])
             fname = userRecord['first_name']
             collection_name_art = dbname['art']
             result = collection_name_art.find({})
@@ -286,20 +289,32 @@ def addToFav(request, button_id):
             }
             # insert into User's favourites
             res = collection_name_art.find_one({'artist_id': button_id})
-            # collection_name_art.replace_one()
-            # try replacing array
             print(list(res))
             print(res['_id'])
             art_id = res['_id']
             try:
 
-                collection_name_user.update_one(
-                    {'email_id': email},
-                     {'$push':
-                          {'favourite':[art_id]}
-                      }
-                )
-                print('Inserted into user')
+                # userInfo = collection_name_user.find({"email_id": email}, {'favourite': [art_id]}).count()
+                for uRec in listToCheck:
+                    if uRec == art_id:
+                        userInfo = 1
+                    else:
+                        userInfo = 0
+                print(f'User info is {userInfo}')
+                if userInfo > 0:
+                    # user has already favourited this art
+                    print('This record already exists')
+                    return render(request, './error.html')
+                else:
+                    # continue
+                    print('This record does not exist')
+                    collection_name_user.update_one(
+                        {'email_id': email},
+                        {'$push':
+                             {'favourite': [art_id]}
+                         }
+                    )
+                    print('Inserted into user')
             except:
                 print('error inserting')
                 return render(request, './error.html')
