@@ -218,49 +218,6 @@ def bookmark(request):
             'counter': count
         }
 
-        # param = {
-        #     'firstName': fname,
-        #     'favourite': userRecord['favourite']
-        # }
-        #
-        # # mongodb pipeline to look the user's fave art from the art collection
-        # art_lookup = {
-        #     "$lookup": {
-        #         'from': 'art',
-        #         'localField': 'favourite',
-        #         'foreignField': '_id',
-        #         'as': 'results'
-        #     }
-        # }
-        #
-        # # mongodb pipline to match the result to the current user's email
-        # user_match = {
-        #     "$match": {
-        #         "email_id": current_user
-        #     }
-        # }
-        #
-        # # pipeline here combines the art look up and retrieves only the logged in user's fave art because of the match condition
-        # pipeline = [
-        #     art_lookup,
-        #     user_match
-        # ]
-        #
-        # results = collection_name_userArt.aggregate(pipeline)
-        # for item in results:
-        #     print(item)
-        #
-        #
-        #
-        #
-        #
-        # # results is a pymongo cursor, in order to send the user's favourited art to the bookmark page, we need to access the results
-        # # field in the cursor
-        # param = {
-        #     'firstName': fname,
-        #     'fave': results
-        # }
-
         return render(request, '../templates/bookmark.html', param)
     return render(request, '../templates/error.html')
 
@@ -329,7 +286,7 @@ def addToFav(request, button_id):
                         {'email_id': email},
                         {'$push':
                              {'favourite': [art_id]}
-                         }
+                        }
                     )
                     # print('Inserted into user')
                     # return render(request, './addedToFav.html')
@@ -339,6 +296,45 @@ def addToFav(request, button_id):
 
             return render(request, './success.html')
     return render(request, './permissionDenied.html')
+
+
+def removeFav(request, button_id):
+    if 'user' in request.session:
+        if request.method == 'POST':
+            try:
+                print('Just entered here')
+                collection_name_user = dbname['User']
+                user_email = request.session['user']
+                userRecord = collection_name_user.find_one({"email_id": user_email})
+
+                listToCheck = list(userRecord['favourite'])
+                print(listToCheck)
+
+                collection_name_art = dbname['art']
+                # result = collection_name_art.find({})
+                res = collection_name_art.find_one({'artist_id': button_id})
+                art_id = res['_id']
+                print(f'art id is {art_id}')
+
+                try:
+                    collection_name_user.update_one(
+                        {'email_id': user_email},
+                        {'$pull':
+                             {'favourite': [art_id]}
+                         }
+                    )
+                    print('Delete Succeeded')
+                except:
+                    print('Error deleting')
+                    return render(request, './error.html')
+
+            except:
+                print('Could not pull')
+                return render(request, './error.html')
+
+            return render(request, './removedFromFav.html')
+    print('Here')
+    return render(request, './error.html')
 
 
 

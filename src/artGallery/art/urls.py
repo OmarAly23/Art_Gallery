@@ -11,4 +11,5 @@ urlpatterns = [
     path('artist/<name>', views.artist, name='artist'),
     path('bookmark/', views.bookmark, name='bookmark'),
     path('addToFav/<str:button_id>/', views.addToFav, name='addToFav'),
+    path('removeFav/<str:button_id>/', views.removeFav, name='removeFav'),
 ]
