@@ -163,10 +163,49 @@ def sign_up(request):
 
 def artist(request, name):
     collection_name_art = dbname["Artist"]
-    retval = collection_name_art.find({"name": name})
+    retval = collection_name_art.find_one({"name": name})
+    fname = retval['name']
+    predob = str(retval['DOB'])
+    country = retval['country']
+    dob = predob.split(' ')
+    pic = retval['pic']
+    wiki = retval['wikiLink']
+    try:
+        dict = []
+        listOfRecords = []
+        collection_name_art = dbname['art']
+        count = 0
+        lRecords = list(retval['art'])
+
+        # extract the IDs
+        for l in lRecords:
+            if isinstance(l, list):
+                for records in l:
+                    # print(f'Records are {records}')
+                    listOfRecords.append(records)
+            else:
+                listOfRecords.append(l)
+
+        # print(listOfRecords)
+
+        # print(lRecords)
+        for record in listOfRecords:
+            # print(f'printing record {record}')
+            count += 1
+            retval = collection_name_art.find_one({"_id": record})
+            # print(f'retval is {retval}')
+            dict.append(retval)
+    except:
+        return render(request, './error.html')
 
     artistRec = {
-        'records': list(retval)
+        'firstName': fname,
+        'DOB': dob[0],
+        'art': dict,
+        'country': country,
+        'counter': count,
+        'pic' : pic,
+        'wiki': wiki
     }
 
     for items in retval:
@@ -219,10 +258,8 @@ def bookmark(request):
         }
 
         return render(request, '../templates/bookmark.html', param)
-    
+
     return render(request, '../templates/error.html')
-
-
 
 
 def addToFav(request, button_id):
@@ -247,7 +284,6 @@ def addToFav(request, button_id):
                         listOfRecords.append(records)
                 else:
                     listOfRecords.append(l)
-
 
             #
             # print('Printing the list to check')
@@ -287,7 +323,7 @@ def addToFav(request, button_id):
                         {'email_id': email},
                         {'$push':
                              {'favourite': [art_id]}
-                        }
+                         }
                     )
                     # print('Inserted into user')
                     # return render(request, './addedToFav.html')
@@ -322,7 +358,7 @@ def removeFav(request, button_id):
                         {'email_id': user_email},
                         {'$pull':
                              {'favourite': [art_id]}
-                        }
+                         }
                     )
                     print('Delete Succeeded')
                 except:
@@ -336,8 +372,6 @@ def removeFav(request, button_id):
             return render(request, './removedFromFav.html')
     print('Here')
     return render(request, './error.html')
-
-
 
 
 def admin(request):
@@ -365,7 +399,7 @@ def admin(request):
             if request.method == 'POST':
                 collection_name_art = dbname['art']
                 art_count = collection_name_art.find({}).count()
-                artistID = 'R'+str(art_count+3)
+                artistID = 'R' + str(art_count + 3)
                 print(artistID)
                 artTitle = request.POST['artTitle']
                 artist = request.POST['artist']
