@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import collections as c
 import json
-from bson.json_util import dumps, loads
+from bson.objectid import ObjectId
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import logout
@@ -139,9 +139,11 @@ def sign_up(request):
         lname = request.POST['lname']
         em = request.POST['email']
         passw = request.POST['password']
+        x = ObjectId('61eb4659809f4b7c49d7de5d')
         user_to_be_added = {
             "email_id": em,
             "password": passw,
+            'favourite': [x],
             "first_name": fname,
             "last_name": lname
         }
@@ -151,11 +153,11 @@ def sign_up(request):
         # retval should be 1 when the record exists and zero when it does not exist
         retval = collection_name.find({"email_id": em}).count()
         if retval == 0:
-            print(f'Before we insert value, print retval: {retval}')
+            # print(f'Before we insert value, print retval: {retval}')
             collection_name.insert_one(user_to_be_added)
             return render(request, '../templates/logIn.html')
         else:
-            print(f'Error side, print retval: {retval}')
+            # print(f'Error side, print retval: {retval}')
             return render(request, '../templates/error.html')
         print('User has been added!')
     return render(request, '../templates/signUp.html')
