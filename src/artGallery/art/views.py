@@ -219,7 +219,7 @@ def bookmark(request):
         }
 
         return render(request, '../templates/bookmark.html', param)
-    
+
     return render(request, '../templates/error.html')
 
 
