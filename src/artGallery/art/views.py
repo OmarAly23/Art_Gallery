@@ -163,10 +163,49 @@ def sign_up(request):
 
 def artist(request, name):
     collection_name_art = dbname["Artist"]
-    retval = collection_name_art.find({"name": name})
+    retval = collection_name_art.find_one({"name": name})
+    fname = retval['name']
+    predob = str(retval['DOB'])
+    country = retval['country']
+    dob = predob.split(' ')
+    pic = retval['pic']
+    wiki = retval['wikiLink']
+    try:
+        dict = []
+        listOfRecords = []
+        collection_name_art = dbname['art']
+        count = 0
+        lRecords = list(retval['art'])
+
+        # extract the IDs
+        for l in lRecords:
+            if isinstance(l, list):
+                for records in l:
+                    # print(f'Records are {records}')
+                    listOfRecords.append(records)
+            else:
+                listOfRecords.append(l)
+
+        # print(listOfRecords)
+
+        # print(lRecords)
+        for record in listOfRecords:
+            # print(f'printing record {record}')
+            count += 1
+            retval = collection_name_art.find_one({"_id": record})
+            # print(f'retval is {retval}')
+            dict.append(retval)
+    except:
+        return render(request, './error.html')
 
     artistRec = {
-        'records': list(retval)
+        'firstName': fname,
+        'DOB': dob[0],
+        'art': dict,
+        'country': country,
+        'counter': count,
+        'pic' : pic,
+        'wiki': wiki
     }
 
     for items in retval:
@@ -223,8 +262,6 @@ def bookmark(request):
     return render(request, '../templates/error.html')
 
 
-
-
 def addToFav(request, button_id):
     if 'user' in request.session:
         if request.method == 'POST':
@@ -247,7 +284,6 @@ def addToFav(request, button_id):
                         listOfRecords.append(records)
                 else:
                     listOfRecords.append(l)
-
 
             #
             # print('Printing the list to check')
@@ -287,7 +323,7 @@ def addToFav(request, button_id):
                         {'email_id': email},
                         {'$push':
                              {'favourite': [art_id]}
-                        }
+                         }
                     )
                     # print('Inserted into user')
                     # return render(request, './addedToFav.html')
@@ -296,7 +332,7 @@ def addToFav(request, button_id):
                 return render(request, './error.html')
 
             return render(request, './success.html')
-    return render(request, './permissionDenied.html')
+    return render(request, './logIn.html')
 
 
 def removeFav(request, button_id):
@@ -322,7 +358,7 @@ def removeFav(request, button_id):
                         {'email_id': user_email},
                         {'$pull':
                              {'favourite': [art_id]}
-                        }
+                         }
                     )
                     print('Delete Succeeded')
                 except:
@@ -336,8 +372,6 @@ def removeFav(request, button_id):
             return render(request, './removedFromFav.html')
     print('Here')
     return render(request, './error.html')
-
-
 
 
 def admin(request):
@@ -361,6 +395,34 @@ def admin(request):
             # print(userResult)
             if result is not None:
                 print('You are an admin')
+
+            if request.method == 'POST':
+                collection_name_art = dbname['art']
+                art_count = collection_name_art.find({}).count()
+                artistID = 'R' + str(art_count + 3)
+                print(artistID)
+                artTitle = request.POST['artTitle']
+                artist = request.POST['artist']
+                art = request.POST['art']
+                cat = request.POST['artCat']
+                year_C = request.POST['yearCreated']
+                artD = request.POST['artDesc']
+                new_art = {
+                    "artist_id": artistID,
+                    "art_title": artTitle,
+                    "artist": artist,
+                    "art_description": artD,
+                    "s3": art,
+                    "art_category": cat,
+                    "year_created": year_C
+
+                }
+                print("new art has been created")
+                retval = collection_name_art.find({"art_title": artTitle}).count()
+                if retval == 0:
+                    print(f'Before we insert value, print retval: {retval}')
+                    collection_name_art.insert_one(new_art)
+                    print("new art has been added")
         except:
             print('could not compute anything')
             return render(request, './error.html')

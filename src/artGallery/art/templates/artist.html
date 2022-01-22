@@ -10,7 +10,7 @@
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
     <link href="../static/admin/css/style2.css" rel="stylesheet">
-    <title>Home | {{ name }}</title>
+    <title>Home | {{ firstName }}</title>
 </head>
 <body>
 
@@ -72,6 +72,7 @@
                 </a>
                 {% endif %}
             </li>
+        </ul>
     </nav>
 </header>
 <section>
@@ -80,12 +81,12 @@
             <div class="col-md-7">
                 <div class="card p-2 py-4">
                     <div class="text-center"><img
-                            src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTY2MzU4MjUzMDA4MDcwMzE4/portrait-of-leonardo-da-vinci-1452-1519-getty.jpg"
+                            src="{{ pic }}"
                             width="200" class="rounded-circle"></div>
-                    <h3 class="mt-3 mb-0 text-center">{{ name }}</h3>
+                    <h3 class="mt-3 mb-0 text-center">{{ firstName }}</h3>
                     <h5 class="mt-2 mb-0 text-center">DOB: {{ DOB }}</h5>
                     <h5 class="mt-2 mb-0 text-center">Country: {{ country }}</h5>
-                    <a href="{{wikiLink}}"><h5 class="mt-2 mb-0 text-center">WikiPage</h5></a>
+                    <a href="{{ wiki }}"><h5 class="mt-2 mb-0 text-center">WikiPage</h5></a>
                     <div class="section-title mt-5">
                         <h2>Art</h2>
                     </div>
@@ -93,7 +94,7 @@
                     <div class="card-body">
 
                         <div class="row portfolio-container">
-                            {% for record in records %}
+                            {% for record in art %}
                             <div class="col-lg-4 col-md-6 portfolio-item renaissance">
                                 <div class="portfolio-wrap">
                                     <a href="{{record.s3}}" class="glightbox2"
@@ -123,6 +124,59 @@
 
     --->
 
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
+<script>
+        var lightbox = GLightbox();
+        lightbox.on('open', (target) => {
+            console.log('lightbox opened');
+        });
+        var lightboxDescription = GLightbox({
+            selector: '.glightbox2'
+        });
+        var lightboxVideo = GLightbox({
+            selector: '.glightbox3'
+        });
+        lightboxVideo.on('slide_changed', ({ prev, current }) => {
+            console.log('Prev slide', prev);
+            console.log('Current slide', current);
+
+            const { slideIndex, slideNode, slideConfig, player } = current;
+
+            if (player) {
+                if (!player.ready) {
+                    // If player is not ready
+                    player.on('ready', (event) => {
+                        // Do something when video is ready
+                    });
+                }
+
+                player.on('play', (event) => {
+                    console.log('Started play');
+                });
+
+                player.on('volumechange', (event) => {
+                    console.log('Volume change');
+                });
+
+                player.on('ended', (event) => {
+                    console.log('Video ended');
+                });
+            }
+        });
+
+        var lightboxInlineIframe = GLightbox({
+            selector: '.glightbox4'
+        });
+
+
+
+</script>
 </body>
 </html>
